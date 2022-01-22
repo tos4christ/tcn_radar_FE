@@ -1,10 +1,9 @@
 import React from 'react';
-import { withRouter, Route, Switch, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import '../css/tables.css';
-import HourlyTableHeader from './HourlyTableHeader';
-import HourlyTableBody from './HourlyTableBody';
 import ProfileRow from './profile/profileRow';
 import Reports from './reports/Reports';
+import Table from './tables/Table';
 
 class HourlyTable extends React.Component {
   constructor(props) {
@@ -28,7 +27,6 @@ class HourlyTable extends React.Component {
     this.setTabs();
   }
   flipFeeder(event) {
-    console.log(this.state)
     const showFeeder = this.state.flipFeeder ? true : false;
     if (showFeeder) {
       this.addFeeder(event);
@@ -127,66 +125,31 @@ class HourlyTable extends React.Component {
             <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>Temperature upload</b></button>
             <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>Outage request upload</b></button>
             <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>132kv Report upload</b></button>
-
           </div>
           {/* Reports */}
           <div id="reports" className="tabcontent">
             <h3 className='mb-0 mt-0'> Reports </h3>
-            <section className="no-style">
-              {/* <div className="feeder-container">
-                <div className="feeder-label">
-                  <label  htmlFor="feeder-hour">Feeder Name</label>
-                </div>
-                <div className="feeder-input" id="feeder-hour">
-                  <span> Hour </span>
-                </div>
-              </div> */}             
-              <div className='main'>  
-                <div className='sub'>
-                  <div className="sub-20">                                   
-                    {this.state.report_feeders.map( (feeder, i) => {
-                      return (
-                        <div key={i} className="li-content">
-                          <div className="feeder-label" >
-                            <label onClick={this.feederReport} >{feeder}</label>
-                          </div>                 
-                          {/* <div className="report-logs">
-                            <ul className='ul'>
-                              <li className='ul'>This is the report li</li>
-                            </ul>
-                          </div> */}
-                        </div>
-                      )
-                    })}
-                    {/* Div for stacking report list */}
-                    <div>
-
+            <section className="no-style">              
+              <div className="sub-10">                                   
+                {this.state.report_feeders.map( (feeder, i) => {
+                  return (
+                    <div key={i} className="li-content">
+                      <div className="feeder-label" >
+                        <label onClick={this.feederReport} >{feeder}</label>
+                      </div>
                     </div>
-                  </div>
-                  <div className='sub-80'>
-                      <Reports feeder={this.state.reportFeeder}/>
-                  </div>
-                </div>
+                  )
+                })}                    
               </div>
+              <div className='sub-90'>
+                  <Reports feeder={this.state.reportFeeder}/>
+              </div> 
             </section>            
           </div>
 
           {/* Hourly inputs */}
           <div id="daily" className="tabcontent">
-            <div className="block-display">
-              <button onClick={this.flipFeeder}>Elegushi</button>
-              <button onClick={this.flipFeeder}>Maroko</button>
-              <button onClick={this.flipFeeder}>Lekki</button>
-              <button onClick={this.flipFeeder}>Oniru</button>
-              <button onClick={this.flipFeeder}>21st Cent</button>
-              <button onClick={this.flipFeeder}>Waterfront</button>
-              <button onClick={this.flipFeeder}>Igbo Efon</button>
-              <button onClick={this.flipFeeder}>Agungi</button>
-            </div>
-            <table className="tg">
-              <HourlyTableHeader />
-              <HourlyTableBody feeders_name={this.state.feeders_name}/>
-            </table>             
+            <Table flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
           {/* Profile */}
@@ -213,8 +176,7 @@ class HourlyTable extends React.Component {
             </div>
           </div>
         </div>
-        <br />
-        
+        <br />        
       </div>
     )
   }

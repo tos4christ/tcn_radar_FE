@@ -1,15 +1,8 @@
 import React from 'react';
 
 class HourlyTableHeader extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: 'Table'
-    }
-  }
 
   render() {
-
     return (
       <thead>
         <tr>

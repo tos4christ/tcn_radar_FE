@@ -32,13 +32,12 @@ class ProfileRow extends React.Component {
     });
   }
 
-
   render() {
     return (
       <tr>
         <td className="tg-e7p8">{this.props.feeder_name}</td>
-        {this.state.feederData.amp ? <td className="tg-e7p8">{this.state.feederData.amp}</td> : ''}
-        {this.state.feederData.hour ? <td className="tg-e7p8">{this.state.feederData.hour}</td> : ''}
+        <td className="tg-e7p8">{this.state.feederData.amp ? this.state.feederData.amp : ''}</td>
+        <td className="tg-e7p8">{this.state.feederData.hour ? this.state.feederData.hour : ''}</td>
       </tr>
     )
   }

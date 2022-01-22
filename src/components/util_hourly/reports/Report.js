@@ -15,6 +15,7 @@ class Report extends React.Component {
   render() {
     return (
       <li className='report-li'>
+        <a href='#/' className='edit-report'>edit</a>
         <span className='report-span'>{this.props.report['feedername']}</span>
         <span className='report-span'>{this.props.report['reporttype']}</span>
         <span className='report-span'>{this.props.report['partyresponsible']}</span>

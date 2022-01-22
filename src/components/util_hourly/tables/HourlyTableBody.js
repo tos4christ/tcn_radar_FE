@@ -11,9 +11,6 @@ class HourlyTableBody extends React.Component {
   componentDidMount() {
     document.onkeydown = this.checkKey;
   }
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
   checkKey(e) {    
     e = e || window.event;
     this.start = e.target;
@@ -44,8 +41,7 @@ class HourlyTableBody extends React.Component {
       this.move(sibling, this.start);
     }
     return;
-  }
-  
+  }  
   move(sibling, start) {
     // let start = this.state.start;
     if (sibling != null) {

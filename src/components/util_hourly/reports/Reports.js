@@ -69,10 +69,9 @@ class Reports extends React.Component {
       <div >
         {/* The reports are entered here after submiting and stacked as a list */}
         <div className='report-list'>
-          <ul className='u'>
+          <ul className=''>
             {this.state.reports.map((report, i) => < Report key={i} report={report}/>)}
-          </ul>
-          
+          </ul>          
         </div>
         {/* This is where the report is populated */}
         <div className='report-form'>

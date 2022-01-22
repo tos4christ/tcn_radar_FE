@@ -10,11 +10,13 @@ class TableData extends React.Component {
       value: ''
     }
   }
-
   componentDidMount() {
-    this.fetchReadings(this.props.id);
+    this._isMounted = true;
+    this._isMounted && this.fetchReadings(this.props.id);
   }
-
+  componentWillUnmount() {
+    this._isMounted =  false;
+  }
   // This function fetches the amp value for each column coresponding to an hour
   fetchReadings(dataId) {
     const url = `/current?feeder_name=${this.props.feeder_name}&current_id=${dataId}`;
@@ -38,7 +40,6 @@ class TableData extends React.Component {
        return { value: prevState.value};
     }));
   }
-
   // OnChange save it in state and push it to the server for real time communication
   onChange(event) {
     const url = `/current?feeder_name=${this.props.feeder_name}&current_id=${this.props.id}`;
@@ -46,7 +47,6 @@ class TableData extends React.Component {
     data = Number(data) === 0 || isNaN(Number(data)) ? 0 : Number(data);
     this.persistReadings(url, {data: data});
   }
-
    // Use this code to persist data to the database. 
    async persistReadings(url, data) {
     // Format the data for persisting on the database    
@@ -62,7 +62,6 @@ class TableData extends React.Component {
     })
     .then(response => response.json());
   }
-
   render() {
     const { value } = this.state;
     // onChange Function updates the server with inputs into the columns
