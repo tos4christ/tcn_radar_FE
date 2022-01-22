@@ -7,7 +7,16 @@ import Header from './components/Header';
 import HourlyTable from './components/util_hourly/HourlyTable';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.getEquipment = this.getEquipment.bind(this);
+    this.state = {
+      
+    };
+  }
+  getEquipment() {
 
+  }
   render() {
     return (
       <Router>

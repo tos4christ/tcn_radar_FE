@@ -14,14 +14,29 @@ class HourlyTable extends React.Component {
     this.setTabs = this.setTabs.bind(this);
     this.printProfile = this.printProfile.bind(this);
     this.feederReport = this.feederReport.bind(this);
+    this.flipFeeder = this.flipFeeder.bind(this);
     this.state = {
       feeders_name: [],
+      report_feeders : ['Lekki', 'Elegushi', 'Waterfront', 'Agungi','Maroko', '21st Cent', 'Igbo Efon', 'Oniru'],
       profileRow: [],
-      reportFeeder: ''
+      reportFeeder: '',
+      flipFeeder: true
     }
   }
   componentDidMount() {
+    // Hide all the tabcontents and remove the active class from their links
     this.setTabs();
+  }
+  flipFeeder(event) {
+    console.log(this.state)
+    const showFeeder = this.state.flipFeeder ? true : false;
+    if (showFeeder) {
+      this.addFeeder(event);
+      this.setState({flipFeeder : false});
+    } else {
+      this.removeFeeder(event)
+      this.setState({flipFeeder : true})
+    }
   }
   addFeeder(event) {
     // store the text content of the feeder in variable name
@@ -36,8 +51,16 @@ class HourlyTable extends React.Component {
       return {feeders_name: feeders_name};
     })
   }
-  setTabs(cityName) {
-    console.log(cityName, 'the city name')
+  removeFeeder(event) {
+    // store the text content of the feeder in variable name
+    const name = event.target.textContent;
+    // remove the feeder's name from the array containing feeder names
+    this.setState(prevState => {
+      const feeders_name = prevState.feeders_name.filter( feeder => name !== feeder);
+      return {feeders_name: feeders_name};
+    })
+  }
+  setTabs() {
     // Declare all variables
     var i, tabcontent, tablinks;
 
@@ -96,16 +119,17 @@ class HourlyTable extends React.Component {
       <div>
         <div className="tab-panel">
           <div className="tab">
-            <button className="tablinks" onClick={e => this.openCity(e, 'reports')}><b>Report upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'daily')}><b>Current upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>Profile download</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'reports')}><b>33kv Report upload</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'daily')}><b>33kv Current upload</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>33kv Profile download</b></button>
             <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>Voltage upload</b></button>
             <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>Power Upload</b></button>
             <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>Temperature upload</b></button>
             <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>Outage request upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>Profile</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>132kv Report upload</b></button>
 
           </div>
+          {/* Reports */}
           <div id="reports" className="tabcontent">
             <h3 className='mb-0 mt-0'> Reports </h3>
             <section className="no-style">
@@ -120,7 +144,7 @@ class HourlyTable extends React.Component {
               <div className='main'>  
                 <div className='sub'>
                   <div className="sub-20">                                   
-                    {this.state.feeders_name.map( (feeder, i) => {
+                    {this.state.report_feeders.map( (feeder, i) => {
                       return (
                         <div key={i} className="li-content">
                           <div className="feeder-label" >
@@ -146,24 +170,26 @@ class HourlyTable extends React.Component {
               </div>
             </section>            
           </div>
+
           {/* Hourly inputs */}
           <div id="daily" className="tabcontent">
             <div className="block-display">
-              <button onClick={this.addFeeder}>Elegushi</button>
-              <button onClick={this.addFeeder}>Maroko</button>
-              <button onClick={this.addFeeder}>Lekki</button>
-              <button onClick={this.addFeeder}>Oniru</button>
-              <button onClick={this.addFeeder}>21st Cent</button>
-              <button onClick={this.addFeeder}>Waterfront</button>
-              <button onClick={this.addFeeder}>Igbo Efon</button>
-              <button onClick={this.addFeeder}>Agungi</button>
+              <button onClick={this.flipFeeder}>Elegushi</button>
+              <button onClick={this.flipFeeder}>Maroko</button>
+              <button onClick={this.flipFeeder}>Lekki</button>
+              <button onClick={this.flipFeeder}>Oniru</button>
+              <button onClick={this.flipFeeder}>21st Cent</button>
+              <button onClick={this.flipFeeder}>Waterfront</button>
+              <button onClick={this.flipFeeder}>Igbo Efon</button>
+              <button onClick={this.flipFeeder}>Agungi</button>
             </div>
             <table className="tg">
               <HourlyTableHeader />
               <HourlyTableBody feeders_name={this.state.feeders_name}/>
             </table>             
           </div>
-          {/* Hourly inputs */}
+
+          {/* Profile */}
           <div id="profile" className="tabcontent">
             <div className="profile-div">
               <button onClick={this.printProfile}>
