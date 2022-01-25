@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import '../css/tables.css';
 import ProfileRow from './profile/profileRow';
 import Reports from './reports/Reports';
 import Table from './tables/Table';
@@ -115,16 +114,18 @@ class HourlyTable extends React.Component {
   render() {    
     return (
       <div>
+      <h> 330kv panel</h>
         <div className="tab-panel">
           <div className="tab">
-            <button className="tablinks" onClick={e => this.openCity(e, 'reports')}><b>33kv Report upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'daily')}><b>33kv Current upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>33kv Profile download</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>Voltage upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>Power Upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>Temperature upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>Outage request upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>132kv Report upload</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'reports')}><b>330kv Lines/Txfr Report upload</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'daily')}><b>330kv Line Current upload</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>330kv Line/Txfr Profile download</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>330kv Line Voltage upload</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>330kv Line Power upload</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>330kv Transformer Current upload</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>330kv Transformer Voltage upload</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>330kv Transformer Power upload</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>330kv Line/Txfr Outage request upload</b></button>
           </div>
           {/* Reports */}
           <div id="reports" className="tabcontent">

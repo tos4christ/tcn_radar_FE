@@ -207,3 +207,7 @@ input {
   width: auto;
   margin: 2px 2px 2px 0px;
 }
+
+a {
+  margin: 10px;
+}
