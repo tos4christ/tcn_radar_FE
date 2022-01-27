@@ -139,42 +139,42 @@ class HourlyTable extends React.Component {
 
           {/* Hourly Line Current inputs */}
           <div id="linecurrent" className="tabcontent">
-            <LineCurrentTable station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <LineCurrentTable type='line_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
           {/* Hourly Line Voltage inputs */}
           <div id="linevoltage" className="tabcontent">
-            <LineVoltageTable station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <LineVoltageTable type='line_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
           {/* Hourly Line Power inputs */}
           <div id="linepower" className="tabcontent">
-            <LinePowerTable station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <LinePowerTable type='line_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
           {/* Hourly Transformer current inputs */}
           <div id="txfrcurrent" className="tabcontent">
-            <TxCurrentTable station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <TxCurrentTable type='txfr_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
           {/* Hourly Transformer voltage inputs */}
           <div id="txfrvoltage" className="tabcontent">
-            <TxVoltageTable station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <TxVoltageTable type='txfr_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
           {/* Hourly Transformer power inputs */}
           <div id="txfrpower" className="tabcontent">
-            <TxPowerTable station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <TxPowerTable type='txfr_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
           {/* Hourly Transformer tap inputs */}
           <div id="txfrtap" className="tabcontent">
-            <TxTapTable station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <TxTapTable type='txfr_tap' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
           {/* Hourly Reactor Mx inputs */}
           <div id="reactor" className="tabcontent">
-            <MxTable station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <MxTable type='reactor_mx' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
           {/* Profile */}

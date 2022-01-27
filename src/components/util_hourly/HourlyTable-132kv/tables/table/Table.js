@@ -20,7 +20,7 @@ class Table extends React.Component {
         </div>
         <table className="tg">
             <HourlyTableHeader type={this.props.type} />
-            <HourlyTableBody feeders_name={this.props.feeders} station={this.props.station}/>
+            <HourlyTableBody type={this.props.type} feeders_name={this.props.feeders} station={this.props.station}/>
         </table>
         </div>     
     )

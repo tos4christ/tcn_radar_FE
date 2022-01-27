@@ -6,7 +6,7 @@ class Voltage extends React.Component {
 
   render() {    
     return (
-      <VoltageTable type='Voltage' station={this.props.station} feeder_link={this.props.feeder_link} feeders={this.props.feeders_name} flipFeeder={this.props.flipFeeder} />
+      <VoltageTable type={this.props.type} station={this.props.station} feeder_link={this.props.feeder_link} feeders={this.props.feeders_name} flipFeeder={this.props.flipFeeder} />
     )
   }
 }

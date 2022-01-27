@@ -6,7 +6,7 @@ class Tap extends React.Component {
 
   render() {    
     return (
-      <TapTable type='Tap' station={this.props.station} feeder_link={this.props.feeder_link} feeders={this.props.feeders_name} flipFeeder={this.props.flipFeeder} />
+      <TapTable type={this.props.type} station={this.props.station} feeder_link={this.props.feeder_link} feeders={this.props.feeders_name} flipFeeder={this.props.flipFeeder} />
     )
   }
 }
