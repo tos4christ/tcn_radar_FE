@@ -7,7 +7,8 @@ class TableData extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.persistReadings = this.persistReadings.bind(this);
     this.state = {
-      value: ''
+      value: '',
+      level: '33'
     }
   }
   componentDidMount() {
@@ -42,7 +43,7 @@ class TableData extends React.Component {
   }
   // OnChange save it in state and push it to the server for real time communication
   onChange(event) {
-    const url = `/current?feeder_name=${this.props.feeder_name}&current_id=${this.props.id}&level=132&type=transformer&station=Lekki`;
+    const url = `/current?feeder_name=${this.props.feeder_name}&current_id=${this.props.id}&level=33&type=feeder&station=${this.props.station}`;
     let data = event.target.innerHTML;
     data = Number(data) === 0 || isNaN(Number(data)) ? 0 : Number(data);
     this.persistReadings(url, {data: data});

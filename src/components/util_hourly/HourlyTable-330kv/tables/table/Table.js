@@ -11,6 +11,7 @@ class Table extends React.Component {
 
   render() {    
     return (
+      // props == type, feeders_name, station
         <div >
         <div className="block-display">
         {this.props.feeder_link.map( (feeder, i) => {
@@ -18,8 +19,8 @@ class Table extends React.Component {
         })}            
         </div>
         <table className="tg">
-            <HourlyTableHeader />
-            <HourlyTableBody feeders_name={this.props.feeders_name}/>
+            <HourlyTableHeader type={this.props.type} />
+            <HourlyTableBody feeders_name={this.props.feeders} station={this.props.station}/>
         </table>
         </div>     
     )

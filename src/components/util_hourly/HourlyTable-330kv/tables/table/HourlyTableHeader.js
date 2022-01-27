@@ -6,7 +6,7 @@ class HourlyTableHeader extends React.Component {
     return (
       <thead>
         <tr>
-          <th className="tg-zb4j">FEEDERS/HR</th>
+          <th className="tg-zb4j">{this.props.type}/HR</th>
           <th className="tg-zb4j">01:00</th>
           <th className="tg-zb4j">02:00</th>
           <th className="tg-zb4j">03:00</th>

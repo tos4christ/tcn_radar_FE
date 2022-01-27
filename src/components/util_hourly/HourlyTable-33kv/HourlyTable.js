@@ -2,7 +2,9 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import ProfileRow from './profile/profileRow';
 import Reports from './reports/Reports';
-import Table from './tables/Table';
+import CurrentTable from './tables/current/Current';
+import VoltageTable from './tables/voltage/Voltage';
+import PowerTable from './tables/power/Power';
 
 class HourlyTable extends React.Component {
   constructor(props) {
@@ -116,38 +118,28 @@ class HourlyTable extends React.Component {
       <div>
       <h> 33kv panel</h>
         <div className="tab-panel">
-          <div className="tab">
-            <button className="tablinks" onClick={e => this.openCity(e, 'reports')}><b>33kv Report upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'daily')}><b>33kv Current upload</b></button>
+          <div className="tab">            
+            <button className="tablinks" onClick={e => this.openCity(e, 'current')}><b>33kv Current upload</b></button>            
+            <button className="tablinks" onClick={e => this.openCity(e, 'voltage')}><b>33kv Voltage upload</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'power')}><b>33kv Power Upload</b></button>
             <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>33kv Profile download</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>33kv Voltage upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>33kv Power Upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>33kv Outage request upload</b></button>
-          </div>
-          {/* Reports */}
-          <div id="reports" className="tabcontent">
-            <h3 className='mb-0 mt-0'> Reports </h3>
-            <section className="no-style">              
-              <div className="sub-10">                                   
-                {this.state.report_feeders.map( (feeder, i) => {
-                  return (
-                    <div key={i} className="li-content">
-                      <div className="feeder-label" >
-                        <label onClick={this.feederReport} >{feeder}</label>
-                      </div>
-                    </div>
-                  )
-                })}                    
-              </div>
-              <div className='sub-90'>
-                  <Reports feeder={this.state.reportFeeder}/>
-              </div> 
-            </section>            
+            <button className="tablinks" onClick={e => this.openCity(e, 'reports')}><b>33kv Report upload</b></button>
+            <button className="tablinks" onClick={e => this.openCity(e, 'outages')}><b>33kv Outage request upload</b></button>
+          </div>         
+
+          {/* Hourly Current inputs */}
+          <div id="current" className="tabcontent">
+            <CurrentTable station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
-          {/* Hourly inputs */}
-          <div id="daily" className="tabcontent">
-            <Table flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+          {/* Hourly Voltage inputs */}
+          <div id="voltage" className="tabcontent">
+            <VoltageTable station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+          </div>
+
+          {/* Hourly Power inputs */}
+          <div id="power" className="tabcontent">
+            <PowerTable station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
           {/* Profile */}
@@ -173,6 +165,50 @@ class HourlyTable extends React.Component {
 
             </div>
           </div>
+
+          {/* Reports */}
+          <div id="reports" className="tabcontent">
+            <h3 className='mb-0 mt-0'> Reports </h3>
+            <section className="no-style">              
+              <div className="sub-10">                                   
+                {this.state.report_feeders.map( (feeder, i) => {
+                  return (
+                    <div key={i} className="li-content">
+                      <div className="feeder-label" >
+                        <label onClick={this.feederReport} >{feeder}</label>
+                      </div>
+                    </div>
+                  )
+                })}                    
+              </div>
+              <div className='sub-90'>
+                  <Reports feeder={this.state.reportFeeder}/>
+              </div> 
+            </section>            
+          </div>
+
+          {/* Outage request */}
+          <div id="outages" className="tabcontent">
+            <h3 className='mb-0 mt-0'> Reports </h3>
+            <section className="no-style">              
+              <div className="sub-10">                                   
+                {this.state.report_feeders.map( (feeder, i) => {
+                  return (
+                    <div key={i} className="li-content">
+                      <div className="feeder-label" >
+                        <label onClick={this.feederReport} >{feeder}</label>
+                      </div>
+                    </div>
+                  )
+                })}                    
+              </div>
+              <div className='sub-90'>
+                  <Reports feeder={this.state.reportFeeder}/>
+              </div> 
+            </section>            
+          </div>
+
+
         </div>
         <br />        
       </div>
