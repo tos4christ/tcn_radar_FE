@@ -13,7 +13,11 @@ class App extends React.Component {
     super(props);
     this.getEquipment = this.getEquipment.bind(this);
     this.state = {
-      
+      station: 'Lekki',
+      feeders: [],
+      transformers: [],
+      lines: [],
+      reactor: []
     };
   }
   componentDidMount() {
@@ -26,8 +30,7 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-
-          <h1> This is the hourly input strategy</h1>
+          <h1>TCN RADAR DATABASE REPOSITORY AND DATA PROCESSING APPLICATION</h1>
           <nav>
             <Link to={'/hourly-33kv'}> HOURLY 33KV FEEDERS </Link>
             <Link to={'/hourly-132kv'}> HOURLY 132KV FEEDERS </Link>
@@ -36,13 +39,13 @@ class App extends React.Component {
 
           <Switch >
             <Route exact path={'/hourly-33kv'}>
-              <Hourly33kv />
+              <Hourly33kv station={this.state.station} feeders={this.state.feeders} transformers={this.state.transformers} lines={this.state.lines} reactor={this.state.reactor} />
             </Route>
             <Route path={'/hourly-132kv'}>
-              <Hourly132kv />
+              <Hourly132kv station={this.state.station} feeders={this.state.feeders} transformers={this.state.transformers} lines={this.state.lines} reactor={this.state.reactor} />
             </Route>
             <Route path={'/hourly-330kv'}>
-              <Hourly330kv />
+              <Hourly330kv station={this.state.station} feeders={this.state.feeders} transformers={this.state.transformers} lines={this.state.lines} reactor={this.state.reactor} />
             </Route>
 
           </Switch>
