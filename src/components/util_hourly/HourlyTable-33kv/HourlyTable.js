@@ -20,7 +20,8 @@ class HourlyTable extends React.Component {
       report_feeders : ['Lekki', 'Elegushi', 'Waterfront', 'Agungi','Maroko', '21st Cent', 'Igbo Efon', 'Oniru'],
       profileRow: [],
       reportFeeder: '',
-      flipFeeder: true
+      flipFeeder: true,
+      item: ''
     }
   }
   componentDidMount() {
@@ -94,12 +95,16 @@ class HourlyTable extends React.Component {
     // Show the current tab, and add an "active" class to the link that opened the tab
     document.getElementById(cityName).style.display = "block";
     event.currentTarget.className += " active";
+    this.setState(prevState => {
+      prevState.item = cityName
+      return {item: prevState.item}
+    })
   }
   printProfile() {
     const check = this.state.profileRow.length > 0 ? false :true;
     if(check) {
       this.setState(prevState => {
-        prevState.profileRow = this.state.feeders_name.map( feeder => <ProfileRow key={feeder} feeder_name={feeder} /> );
+        prevState.profileRow = this.state.feeders_name.map( feeder => <ProfileRow type='' key={feeder} feeder_name={feeder} /> );
         return {profileRow : prevState.profileRow} 
       })
     } else this.setState({profileRow: []})
@@ -113,10 +118,10 @@ class HourlyTable extends React.Component {
     })
   }
 
-  render() {    
+  render() {
     return (
       <div>
-      <h> 33kv panel</h>
+      <h1> 33kv panel</h1>
         <div className="tab-panel">
           <div className="tab">            
             <button className="tablinks" onClick={e => this.openCity(e, 'current')}><b>33kv Current upload</b></button>            
@@ -129,17 +134,17 @@ class HourlyTable extends React.Component {
 
           {/* Hourly Current inputs */}
           <div id="current" className="tabcontent">
-            <CurrentTable type='feeder_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <CurrentTable item={this.state.item} type='feeder_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
           {/* Hourly Voltage inputs */}
           <div id="voltage" className="tabcontent">
-            <VoltageTable type='feeder_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <VoltageTable item={this.state.item} type='feeder_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
           {/* Hourly Power inputs */}
           <div id="power" className="tabcontent">
-            <PowerTable type='feeder_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <PowerTable item={this.state.item} type='feeder_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
 
           {/* Profile */}

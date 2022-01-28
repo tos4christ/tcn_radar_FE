@@ -7,7 +7,7 @@ class Current extends React.Component {
   render() {    
     return (
         // props === type, station, feeder_link, feeders, flipFeeder
-      <CurrentTable type={this.props.type} station={this.props.station} feeder_link={this.props.feeder_link} feeders={this.props.feeders_name} flipFeeder={this.props.flipFeeder} />
+      <CurrentTable item={this.props.item} type={this.props.type} station={this.props.station} feeder_link={this.props.feeder_link} feeders={this.props.feeders_name} flipFeeder={this.props.flipFeeder} />
     )
   }
 }

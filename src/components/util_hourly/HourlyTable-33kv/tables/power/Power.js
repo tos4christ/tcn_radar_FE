@@ -6,7 +6,7 @@ class Power extends React.Component {
 
   render() {    
     return (
-      <PowerTable type={this.props.type} station={this.props.station} feeder_link={this.props.feeder_link} feeders={this.props.feeders_name} flipFeeder={this.props.flipFeeder} />
+      <PowerTable item={this.props.item} type={this.props.type} station={this.props.station} feeder_link={this.props.feeder_link} feeders={this.props.feeders_name} flipFeeder={this.props.flipFeeder} />
     )
   }
 }

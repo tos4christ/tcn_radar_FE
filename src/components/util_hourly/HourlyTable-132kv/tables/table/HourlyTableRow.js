@@ -11,10 +11,9 @@ class HourlyTableBody extends React.Component {
 
   render() {
     // props == count, feeder_name, onChange, key, id
-    const date = new Date();
     const tableDataArray = [];
     for (let i=1; i < 25; i++) {
-      tableDataArray.push(<HourlyTableData type={this.props.type} station={this.props.station} count={i} feeder_name={this.props.feeder_name} onChange={this.onChange} key={i} id={`${this.props.feeder_name.toLowerCase()}-${date.getFullYear()}-0${date.getMonth()+1}-${date.getDate()}-0${i}`} />)
+      tableDataArray.push(<HourlyTableData date={this.props.date} type={this.props.type} station={this.props.station} count={i} feeder_name={this.props.feeder_name} onChange={this.onChange} key={i} id={`${this.props.feeder_name.toLowerCase()}-${this.props.date}-0${i}`} />)
     };
     return (
       <tr>

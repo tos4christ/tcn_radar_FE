@@ -18,7 +18,7 @@ class Reports extends React.Component {
     const url = `/reports`;
     fetch(url, {
       method: 'GET',
-      mode: 'no-cors',
+      mode: 'cors',
       cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json'

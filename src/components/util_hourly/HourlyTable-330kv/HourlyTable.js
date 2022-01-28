@@ -121,7 +121,7 @@ class HourlyTable extends React.Component {
   render() {    
     return (
       <div>
-      <h> 330kv panel</h>
+      <h1> 330kv panel</h1>
         <div className="tab-panel">
           <div className="tab">            
             <button className="tablinks" onClick={e => this.openCity(e, 'linecurrent')}><b>330kv Line Current upload</b></button>            

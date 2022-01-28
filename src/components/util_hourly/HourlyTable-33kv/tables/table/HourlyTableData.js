@@ -8,19 +8,28 @@ class TableData extends React.Component {
     this.persistReadings = this.persistReadings.bind(this);
     this.state = {
       value: '',
-      level: '33'
+      level: '33',
+      date: this.props.date
     }
   }
   componentDidMount() {
     this._isMounted = true;
-    this._isMounted && this.fetchReadings(this.props.id);
+    this._isMounted && this.fetchReadings();
   }
   componentWillUnmount() {
     this._isMounted =  false;
   }
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.date !== this.props.date) {
+      this.fetchReadings()
+    }
+  }
+  
   // This function fetches the amp value for each column coresponding to an hour
-  fetchReadings(dataId) {
-    const url = `/current?feeder_name=${this.props.feeder_name}&current_id=${dataId}`;
+  fetchReadings() {
+    console.log(this.props.item, this.props.type, 'this are the items')
+    const type = this.props.type.split('_');
+    const url = `/${this.props.item}?feeder_name=${this.props.feeder_name}&${type[1]}_id=${this.props.id}&date=${this.props.date}`;
     fetch(url, {
       method: 'GET',
       mode: 'no-cors',
@@ -43,7 +52,8 @@ class TableData extends React.Component {
   }
   // OnChange save it in state and push it to the server for real time communication
   onChange(event) {
-    const url = `/current?feeder_name=${this.props.feeder_name}&current_id=${this.props.id}&level=33&type=feeder&station=${this.props.station}`;
+    const type = this.props.type.split('_');
+    const url = `/${type[1]}?feeder_name=${this.props.feeder_name}&${type[1]}_id=${this.props.id}&level=33&type=${type[0]}&station=${this.props.station}`;
     let data = event.target.innerHTML;
     data = Number(data) === 0 || isNaN(Number(data)) ? 0 : Number(data);
     this.persistReadings(url, {data: data});
@@ -64,6 +74,7 @@ class TableData extends React.Component {
     .then(response => response.json());
   }
   render() {
+    // console.log(this.state.date, this.props.date, 'the state date and the props date')
     const { value } = this.state;
     // onChange Function updates the server with inputs into the columns
     return (
