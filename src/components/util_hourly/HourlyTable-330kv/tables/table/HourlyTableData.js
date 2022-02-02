@@ -51,7 +51,7 @@ class TableData extends React.Component {
   // OnChange save it in state and push it to the server for real time communication
   onChange(event) {
     const type = this.props.type.split('_');
-    const url = `/${type[1]}?feeder_name=${this.props.feeder_name}&${type[1]}_id=${this.props.id}&level=33&type=${type[0]}&station=${this.props.station}`;
+    const url = `/${type[1]}?feeder_name=${this.props.feeder_name}&${type[1]}_id=${this.props.id}&level=330&type=${type[0]}&station=${this.props.station}&date=${this.props.date}`;
     let data = event.target.innerHTML;
     data = Number(data) === 0 || isNaN(Number(data)) ? 0 : Number(data);
     this.persistReadings(url, {data: data});

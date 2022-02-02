@@ -132,25 +132,25 @@ class HourlyTable extends React.Component {
       </nav>              
     
       <Switch>
-        <Route exact path={`${this.props.match.path}/current`}>
+        <Route path={`${this.props.match.path}/current`}>
           {/* Hourly Current inputs */}
           <div id="current" className="tabcontent">
             <CurrentTable item={this.state.item} type='feeder_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} /> 
           </div>
         </Route>
-        <Route exact path={`${this.props.match.path}/voltage`}>
+        <Route path={`${this.props.match.path}/voltage`}>
           {/* Hourly Voltage inputs */}
           <div id="voltage" className="tabcontent">
             <VoltageTable item={this.state.item} type='feeder_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
         </Route>
-        <Route exact path={`${this.props.match.path}/power`}>
+        <Route path={`${this.props.match.path}/power`}>
           {/* Hourly Power inputs */}
           <div id="power" className="tabcontent">
             <PowerTable item={this.state.item} type='feeder_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
         </Route>
-        <Route exact path={`${this.props.match.path}/profile`}>
+        <Route path={`${this.props.match.path}/profile`}>
           {/* Profile */}
           <div id="profile" className="tabcontent">
             <div className="profile-div">
@@ -175,7 +175,7 @@ class HourlyTable extends React.Component {
             </div>
           </div>
         </Route>
-        <Route exact path={`${this.props.match.path}/reports`}>
+        <Route path={`${this.props.match.path}/reports`}>
           {/* Reports */}
           <div id="reports" className="tabcontent">
             <h3 className='mb-0 mt-0'> Reports </h3>
@@ -197,7 +197,7 @@ class HourlyTable extends React.Component {
             </section>            
           </div>
         </Route>
-        <Route exact path={`${this.props.match.path}/outages`}>
+        <Route path={`${this.props.match.path}/outages`}>
           {/* Outage request */}
           <div id="outages" className="tabcontent">
             <h3 className='mb-0 mt-0'> Reports </h3>
