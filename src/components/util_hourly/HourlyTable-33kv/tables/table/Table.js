@@ -31,7 +31,7 @@ class Table extends React.Component {
   render() {    
     return (
       // props == type, feeders_name, station
-        <div >
+        <div>
         {/* Select a date to usein getting the data */}
         <input type={'date'} onChange={this.setDate} ref={node => this.selectedDate = node } defaultValue={this.state.date} ></input>
         <div className="block-display">

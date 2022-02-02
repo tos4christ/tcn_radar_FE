@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link, Switch, Route } from 'react-router-dom';
 import ProfileRow from './profile/profileRow';
 import Reports from './reports/Reports';
 import LineCurrentTable from './tables/lines/current/Current';
@@ -30,7 +30,7 @@ class HourlyTable extends React.Component {
   }
   componentDidMount() {
     // Hide all the tabcontents and remove the active class from their links
-    this.setTabs();
+    // this.setTabs();
   }
   flipFeeder(event) {
     const showFeeder = this.state.flipFeeder ? true : false;
@@ -121,62 +121,71 @@ class HourlyTable extends React.Component {
   render() {    
     return (
       <div>
-      <h1> 132kv panel</h1>
-        <div className="tab-panel">
-          <div className="tab">            
-            <button className="tablinks" onClick={e => this.openCity(e, 'linecurrent')}><b>132kv Line Current upload</b></button>            
-            <button className="tablinks" onClick={e => this.openCity(e, 'linevoltage')}><b>132kv Line Voltage upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'linepower')}><b>132kv Line Power upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'txfrcurrent')}><b>132kv Transformer Current upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'txfrvoltage')}><b>132kv Transformer Voltage upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'txfrpower')}><b>132kv Transformer Power upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'txfrtap')}><b>132kv Transformer Tap position upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'reactor')}><b>132kv Reactor Mx upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>132kv Line/Txfr Profile download</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'reports')}><b>132kv Lines/Txfr Report upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'outages')}><b>132kv Line/Txfr Outage request upload</b></button>            
-          </div>          
+      <h1> 132kv panel</h1>       
+      <nav>
+          <Link to={`${this.props.match.url}/linecurrent`}> 132kv Line Current upload </Link>
+          <Link to={`${this.props.match.url}/linevoltage`}> 132kv Line Voltage upload </Link>
+          <Link to={`${this.props.match.url}/linepower`}> 132kv Line Power Upload </Link>
+          <Link to={`${this.props.match.url}/txfrcurrent`}> 132kv Transformer Current upload </Link>
+          <Link to={`${this.props.match.url}/txfrvoltage`}> 132kv Transformer Voltage upload </Link>
+          <Link to={`${this.props.match.url}/txfrpower`}> 132kv Transformer Power Upload </Link>
+          <Link to={`${this.props.match.url}/txfrtap`}> 132kv Transformer Tap upload </Link>
+          <Link to={`${this.props.match.url}/reactor`}> 132kv Reactor MX upload </Link>
+          <Link to={`${this.props.match.url}/profile`}> 132kv Profile download </Link>
+          <Link to={`${this.props.match.url}/reports`}> 132kv Report upload </Link>
+          <Link to={`${this.props.match.url}/outages`}> 132kv Outage request upload </Link>
+      </nav>
 
+      <Switch>        
+        <Route path={`${this.props.match.path}/linecurrent`}>
           {/* Hourly Line Current inputs */}
           <div id="linecurrent" className="tabcontent">
             <LineCurrentTable type='line_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
-
+        </Route>
+        <Route path={`${this.props.match.path}/linevoltage`}>
           {/* Hourly Line Voltage inputs */}
           <div id="linevoltage" className="tabcontent">
             <LineVoltageTable type='line_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
-
+        </Route>
+        <Route path={`${this.props.match.path}/linepower`}>
           {/* Hourly Line Power inputs */}
           <div id="linepower" className="tabcontent">
             <LinePowerTable type='line_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
-
+        </Route>
+        <Route path={`${this.props.match.path}/txfrcurrent`}>
           {/* Hourly Transformer current inputs */}
           <div id="txfrcurrent" className="tabcontent">
             <TxCurrentTable type='txfr_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
-
+        </Route>
+        <Route path={`${this.props.match.path}/txfrvoltage`}>
           {/* Hourly Transformer voltage inputs */}
           <div id="txfrvoltage" className="tabcontent">
             <TxVoltageTable type='txfr_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
-
+        </Route>
+        <Route path={`${this.props.match.path}/txfrpower`}>
           {/* Hourly Transformer power inputs */}
           <div id="txfrpower" className="tabcontent">
             <TxPowerTable type='txfr_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
-
+        </Route>
+        <Route path={`${this.props.match.path}/txfrtap`}>
           {/* Hourly Transformer tap inputs */}
           <div id="txfrtap" className="tabcontent">
             <TxTapTable type='txfr_tap' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
-
+        </Route>
+        <Route path={`${this.props.match.path}/reactor`}>
           {/* Hourly Reactor Mx inputs */}
           <div id="reactor" className="tabcontent">
             <MxTable type='reactor_mx' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
-
+        </Route>
+        <Route path={`${this.props.match.path}/profile`}>
           {/* Profile */}
           <div id="profile" className="tabcontent">
             <div className="profile-div">
@@ -200,7 +209,8 @@ class HourlyTable extends React.Component {
 
             </div>
           </div>
-
+        </Route>
+        <Route path={`${this.props.match.path}/reports`}>
           {/* Reports */}
           <div id="reports" className="tabcontent">
             <h3 className='mb-0 mt-0'> Reports </h3>
@@ -221,7 +231,8 @@ class HourlyTable extends React.Component {
               </div> 
             </section>            
           </div>
-
+        </Route>
+        <Route path={`${this.props.match.path}/outages`}>
           {/* Outages */}
           <div id="outages" className="tabcontent">
             <h3 className='mb-0 mt-0'> Reports </h3>
@@ -242,9 +253,10 @@ class HourlyTable extends React.Component {
               </div> 
             </section>            
           </div>
+        </Route>
+        
+      </Switch>
 
-        </div>
-        <br />        
       </div>
     )
   }

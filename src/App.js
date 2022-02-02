@@ -38,7 +38,7 @@ class App extends React.Component {
           </nav>
 
           <Switch >
-            <Route exact path={'/hourly-33kv'}>
+            <Route path={'/hourly-33kv'}>
               <Hourly33kv station={this.state.station} feeders={this.state.feeders} transformers={this.state.transformers} lines={this.state.lines} reactor={this.state.reactor} />
             </Route>
             <Route path={'/hourly-132kv'}>

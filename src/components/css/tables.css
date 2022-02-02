@@ -15,6 +15,9 @@ input {
   margin: 0;
 }
 
+.container-fluid {
+  height: max-content;
+}
 
 /* Vertical Tabs Configuration start */
 
@@ -55,7 +58,7 @@ input {
 
 /* Style the tab content */
 .tabcontent {
-  float: left;
+  float: right;
   padding: 0px 12px;
   border: 1px solid #ccc;
   width: 85%;

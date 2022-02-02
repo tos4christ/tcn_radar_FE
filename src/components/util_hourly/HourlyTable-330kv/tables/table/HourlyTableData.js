@@ -8,7 +8,7 @@ class TableData extends React.Component {
     this.persistReadings = this.persistReadings.bind(this);
     this.state = {
       value: '',
-      level: '33',
+      level: '330',
       date: this.props.date
     }
   }
@@ -27,7 +27,7 @@ class TableData extends React.Component {
   // This function fetches the amp value for each column coresponding to an hour
   fetchReadings() {
     const type = this.props.type.split('_');
-    const url = `/${type[1]}?feeder_name=${this.props.feeder_name}&${type[1]}_id=${this.props.id}&date=${this.props.date}`;
+    const url = `/${type[1]}?feeder_name=${this.props.feeder_name}&${type[1]}_id=${this.props.id}&date=${this.props.date}&level=330&type=${type[0]}`;
     fetch(url, {
       method: 'GET',
       mode: 'no-cors',

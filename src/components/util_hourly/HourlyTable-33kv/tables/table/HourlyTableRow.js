@@ -1,7 +1,8 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import HourlyTableData from './HourlyTableData';
 
-class HourlyTableBody extends React.Component {
+class HourlyTableRow extends React.Component {
   constructor(props) {
     super(props); 
     this.state = {
@@ -26,4 +27,4 @@ class HourlyTableBody extends React.Component {
   }
 }
 
-export default HourlyTableBody;
+export default HourlyTableRow;

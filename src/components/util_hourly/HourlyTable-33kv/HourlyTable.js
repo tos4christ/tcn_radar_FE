@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link, Switch, Route } from 'react-router-dom';
 import ProfileRow from './profile/profileRow';
 import Reports from './reports/Reports';
 import CurrentTable from './tables/current/Current';
@@ -26,7 +26,7 @@ class HourlyTable extends React.Component {
   }
   componentDidMount() {
     // Hide all the tabcontents and remove the active class from their links
-    this.setTabs();
+    //this.setTabs();
   }
   flipFeeder(event) {
     const showFeeder = this.state.flipFeeder ? true : false;
@@ -122,31 +122,35 @@ class HourlyTable extends React.Component {
     return (
       <div>
       <h1> 33kv panel</h1>
-        <div className="tab-panel">
-          <div className="tab">            
-            <button className="tablinks" onClick={e => this.openCity(e, 'current')}><b>33kv Current upload</b></button>            
-            <button className="tablinks" onClick={e => this.openCity(e, 'voltage')}><b>33kv Voltage upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'power')}><b>33kv Power Upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'profile')}><b>33kv Profile download</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'reports')}><b>33kv Report upload</b></button>
-            <button className="tablinks" onClick={e => this.openCity(e, 'outages')}><b>33kv Outage request upload</b></button>
-          </div>         
-
+      <nav>
+            <Link to={`${this.props.match.url}/current`}> 33kv Current upload </Link>
+            <Link to={`${this.props.match.url}/voltage`}> 33kv Voltage upload </Link>
+            <Link to={`${this.props.match.url}/power`}> 33kv Power Upload </Link>
+            <Link to={`${this.props.match.url}/profile`}> 33kv Profile download </Link>
+            <Link to={`${this.props.match.url}/reports`}> 33kv Report upload </Link>
+            <Link to={`${this.props.match.url}/outages`}> 33kv Outage request upload </Link>
+      </nav>              
+    
+      <Switch>
+        <Route exact path={`${this.props.match.path}/current`}>
           {/* Hourly Current inputs */}
           <div id="current" className="tabcontent">
-            <CurrentTable item={this.state.item} type='feeder_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <CurrentTable item={this.state.item} type='feeder_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} /> 
           </div>
-
+        </Route>
+        <Route exact path={`${this.props.match.path}/voltage`}>
           {/* Hourly Voltage inputs */}
           <div id="voltage" className="tabcontent">
             <VoltageTable item={this.state.item} type='feeder_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
-
+        </Route>
+        <Route exact path={`${this.props.match.path}/power`}>
           {/* Hourly Power inputs */}
           <div id="power" className="tabcontent">
             <PowerTable item={this.state.item} type='feeder_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
           </div>
-
+        </Route>
+        <Route exact path={`${this.props.match.path}/profile`}>
           {/* Profile */}
           <div id="profile" className="tabcontent">
             <div className="profile-div">
@@ -170,7 +174,8 @@ class HourlyTable extends React.Component {
 
             </div>
           </div>
-
+        </Route>
+        <Route exact path={`${this.props.match.path}/reports`}>
           {/* Reports */}
           <div id="reports" className="tabcontent">
             <h3 className='mb-0 mt-0'> Reports </h3>
@@ -191,7 +196,8 @@ class HourlyTable extends React.Component {
               </div> 
             </section>            
           </div>
-
+        </Route>
+        <Route exact path={`${this.props.match.path}/outages`}>
           {/* Outage request */}
           <div id="outages" className="tabcontent">
             <h3 className='mb-0 mt-0'> Reports </h3>
@@ -212,10 +218,9 @@ class HourlyTable extends React.Component {
               </div> 
             </section>            
           </div>
-
-
-        </div>
-        <br />        
+        </Route>
+      </Switch>        
+        
       </div>
     )
   }

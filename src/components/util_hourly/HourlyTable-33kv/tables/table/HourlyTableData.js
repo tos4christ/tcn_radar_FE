@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 
 class TableData extends React.Component {
   constructor(props) {
@@ -23,13 +24,11 @@ class TableData extends React.Component {
     if(prevProps.date !== this.props.date) {
       this.fetchReadings()
     }
-  }
-  
+  }  
   // This function fetches the amp value for each column coresponding to an hour
   fetchReadings() {
-    console.log(this.props.item, this.props.type, 'this are the items')
     const type = this.props.type.split('_');
-    const url = `/${this.props.item}?feeder_name=${this.props.feeder_name}&${type[1]}_id=${this.props.id}&date=${this.props.date}`;
+    const url = `/${type[1]}?feeder_name=${this.props.feeder_name}&${type[1]}_id=${this.props.id}&date=${this.props.date}&level=33&type=${type[0]}`;
     fetch(url, {
       method: 'GET',
       mode: 'no-cors',
@@ -53,7 +52,7 @@ class TableData extends React.Component {
   // OnChange save it in state and push it to the server for real time communication
   onChange(event) {
     const type = this.props.type.split('_');
-    const url = `/${type[1]}?feeder_name=${this.props.feeder_name}&${type[1]}_id=${this.props.id}&level=33&type=${type[0]}&station=${this.props.station}`;
+    const url = `/${type[1]}?feeder_name=${this.props.feeder_name}&${type[1]}_id=${this.props.id}&level=33&type=${type[0]}&station=${this.props.station}&date=${this.props.date}`;
     let data = event.target.innerHTML;
     data = Number(data) === 0 || isNaN(Number(data)) ? 0 : Number(data);
     this.persistReadings(url, {data: data});
