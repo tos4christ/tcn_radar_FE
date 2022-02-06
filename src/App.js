@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {BrowserRouter as Router, Link, Route, Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import './App.css';
 import './components/css/tables.css';
 import './components/css/style.css';
@@ -13,12 +13,12 @@ import "./components/css/slicknav.min.css";
 import "./components/css/icofont.css";
 import "./components/css/font-awesome.min.css";
 import "./components/css/responsive.css";
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.setUserDetails = this.setUserDetails.bind(this);
-    this.logout = this.logout.bind(this);
     this.state = {
       user_details: '',
       token: '',
@@ -31,30 +31,26 @@ class App extends React.Component {
     
   }
   setUserDetails(details) {
-    console.log(details, 'the details')
-    this.setState({token: details.token});
-    this.setState({userName: details.userName});
-    this.setState({station_id: details.station_id});
-    this.setState({station: details.station})
-  }
-  logout() {
-    this.setState({token: ''});
-    
+    const station = localStorage.getItem("station");
+    const station_id = localStorage.getItem("station_id");
+    const token = localStorage.getItem("token");
+    const userName = localStorage.getItem("userName");
+    this.setState({token: token});
+    this.setState({userName: userName});
+    this.setState({station_id: station_id});
+    this.setState({station: station})
   }
   render() {
-    console.log(this.state)
-    return (
-      
+    return (      
       <Router>
         <nav>
           <Link to='/signup'> Sign Up </Link>
           <Link to='/signin'> Sign In </Link>
-          <button onClick={this.logout}> Sign Out </button>
         </nav>        
 
           <Switch >
             <Route path={'/signup'}>
-              <SignUp setUser={this.setUserDetails} />
+              <SignUp />
             </Route>
             <Route path={'/signin'}>
               <SignIn setUser={this.setUserDetails} />

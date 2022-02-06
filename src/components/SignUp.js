@@ -35,10 +35,7 @@ const SignUp = (props) => {
     })
     .then( (res) => res.json())
     .then( (response) => {
-        //pass the user data to the state of the App
-        // Set the app state with the details of the user
-        props.setUser(response.data);
-      // ls.set('token', response.data.token);
+      //pass the user data to the state of the App
       // This would push to the signin page for the user to now login
       history.push(`/signin`);
     })

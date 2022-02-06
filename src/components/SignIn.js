@@ -41,9 +41,12 @@ class SignIn extends React.Component {
     .then((res) => res.json())
     .then((response) => {
       //pass the user data to the state of the App
-      this.props.setUser(response.data);
-      // localStorage.setItem("userId", response.data.userId);
-      this.props.history.push({pathname: `/dashboard`, state: {data: response}});
+      localStorage.setItem("station", response.data.station);
+      localStorage.setItem("station_id", response.data.station_id);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userName", response.data.userName);
+      this.props.setUser();
+      this.props.history.push({pathname: `/dashboard`});
     })
     .catch((error) => console.error(error.message));
   };

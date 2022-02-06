@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Link, Route, Switch, withRouter} from 'react-router-dom';
+import {Link, Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import Hourly33kv from './util_hourly/HourlyTable-33kv/HourlyTable';
 import Hourly132kv from './util_hourly/HourlyTable-132kv/HourlyTable';
 import Hourly330kv from './util_hourly/HourlyTable-330kv/HourlyTable';
@@ -9,6 +9,7 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.getEquipment = this.getEquipment.bind(this);
+    this.logout =  this.logout.bind(this);
     this.state = {
       station: '',
       station_id: '',
@@ -16,25 +17,38 @@ class Dashboard extends React.Component {
       transformers: [],
       lines: [],
       reactor: [],
-      token: ''
+      token: '',
+      userName: ''
     };
   }
   componentDidMount() {
-   this.setState(prevState => {
-     const station = this.props.location.state.data.data.station;
-     const station_id = this.props.location.state.data.data.station_id;
-     const token = this.props.location.state.data.data.token;
-     prevState.station = station;
-     prevState.station_id = station_id;
-     prevState.token = token;
-     return {station: prevState.station, station_id: prevState.station_id, token: prevState.token}
-   })
+    this._isMounted = true;
+    this._isMounted && this.setState(prevState => {
+    const station = localStorage.getItem("station");
+    const station_id = localStorage.getItem("station_id");
+    const token = localStorage.getItem("token");
+    const userName = localStorage.getItem("userName");
+      prevState.station = station;
+      prevState.station_id = station_id;
+      prevState.token = token;
+      prevState.userName = userName;
+      return {station: prevState.station, station_id: prevState.station_id, token: prevState.token, userName: prevState.userName}
+    })
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
   }
   getEquipment() {
 
   }
+  logout() {
+    this.setState(prevState => {
+      prevState.token = '';
+      return {token: prevState.token}
+    });
+    this.props.history.push('/signin')
+  }
   render() {
-    console.log(this.state, 'the location')
     return (
       <div>
         <div className="App">
@@ -43,6 +57,7 @@ class Dashboard extends React.Component {
             <Link to={`${this.props.match.url}/hourly-33kv`}> HOURLY 33KV FEEDERS </Link>
             <Link to={`${this.props.match.url}/hourly-132kv`}> HOURLY 132KV FEEDERS </Link>
             <Link to={`${this.props.match.url}/hourly-330kv`}> HOURLY 330KV FEEDERS </Link>
+            <button onClick={this.logout}> Sign Out </button>
           </nav>
 
           <Switch >
