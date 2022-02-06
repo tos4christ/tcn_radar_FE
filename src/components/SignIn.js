@@ -1,81 +1,85 @@
-import React from 'react';
-import {withRouter} from 'react-router';
+import React from "react";
+import { withRouter } from 'react-router-dom';
+import Text from "../components/Inputs/Text";
+import Button from "../components/Inputs/Button";
+import Link from "../components/Inputs/Links";
+// import socket from "../utility/socketioConnection";
 
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
+    this.setEmail = this.setEmail.bind(this);
+    this.setPassword = this.setPassword.bind(this);
     this.state = {
-      value: 'Male'
+      email: '',
+      password: ''
     }
   }
-  handleChange = e => {
-    this.setState({value: e.target.value});
+  setEmail(email) {
+    this.setState({email:email})
   }
-
+  setPassword(password) {
+    this.setState({password: password})
+  }  
+  handleSubmission = (e) => {
+    e.preventDefault();
+    const url = "/signin";
+    const email = this.state.email;
+    const password = this.state.password;
+    if (email === "" || password === "") {
+      return;
+    }
+    const data = { email, password };
+    fetch(url, {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => res.json())
+    .then((response) => {
+      //pass the user data to the state of the App
+      this.props.setUser(response.data);
+      // localStorage.setItem("userId", response.data.userId);
+      this.props.history.push({pathname: `/dashboard`, state: {data: response}});
+    })
+    .catch((error) => console.error(error.message));
+  };
   render() {
     return (
-      <div className="container-fluid">
-        <div className='row'>
-          <div className='col-6 welcome-div'>
-
-            <div className='heading text-center'>
-              <h2>Welcome Back</h2>
-            </div>
-            <div className='text-center'>
-              <p className='h5'> To keep connected to your team mates, sign up and start posting
-                  gifs and articles
-              </p>
-            </div>
-            <div className='text-center'>
-              <button type='button' className='btn signupButton col-4'>Sign up</button>
-            </div>
-
-          </div>
-          <div className='col-6 bg-signin'>
-            <div className='form-div'>
-              <form autoComplete="on">
-                <h1 className='g-fonts my-5 ml-5 pl-5 text-white'>
-                  Sign In
-                </h1>
-                     {/* Another div here to contain form inputs */}
-                <div className='input-group col-8'>
-                  <div className='input-group-prepend'>
-                    <span className='input-group-text far fa-envelope'></span>
-                  </div>
-                  <input type='email' ref={input => this.email = input} placeholder='Enter your email' className='form-control' id='email' />
-                </div>
-                <div className='input-group col-8 my-2'>
-                  <div className='input-group-prepend'>
-                    <i className='input-group-text fa fa-lock'></i>
-                  </div>
-                  <input type='password' ref={input => this.password = input} placeholder='Enter your password' className='form-control' id='password' />
-                </div>
-                <div className='form-group col-8 my-4'>
-                  <div className='custom-control custom-control-inline custom-radio'>
-                    <input type='radio' ref={input => this.employee = input} onChange={this.handleChange} id='employee' className='custom-control-input' name='roles' value='employee' />
-                    <label for='employee' className='custom-control-label'>Employee</label>
-                  </div>
-                  <div className='custom-control custom-control-inline custom-radio'>
-                    <input type='radio' ref={input => this.admin = input} onChange={this.handleChange} id='admin' className='custom-control-input' name='roles' value='admin' />
-                    <label for='admin' className='custom-control-label'>Admin</label>
-                  </div>
-                </div>
-                <div className='custom-control custom-checkbox ml-3 my-3'>
-                  <input  type='checkbox' className='custom-control-input' id='remember'/>
-                  <label className='custom-control-label rem-font' for='remember'>
-                    Remember me
-                  </label>
-                </div>
-                <div>
-                  <button type='submit' className='btn bg-signin loginButton col-4'> Submit </button>
-                </div>
-              </form>
-            </div>
+      <div className="py-4 responders-bg container-fluid bg-light">
+        <div className="row mt-4">
+          <div className="col-sm-4 mx-auto mt-4 pt-4 bg-white shadow">
+            <div className="login-bg"></div>
+            <form className="mt-3" onSubmit={this.handleSubmission} autoComplete="on">
+              <Text
+                type={"email"}
+                placeholder={"User Email"}
+                name={"email"}
+                icon={"fa fa-envelope"}
+                nameChange={ this.setEmail }
+              />
+              <Text
+                type={"password"}
+                placeholder={"Password"}
+                name={"password"}
+                icon={"fa fa-lock"}
+                nameChange={ this.setPassword }
+              />
+              <Link
+                question="Not Registered? "
+                link="Sign Up"
+                linkTo="/signup"
+              />
+              <Button id="" text={"Login"} onClick={() => "coming"} />
+            </form>
           </div>
         </div>
       </div>
-    )
-  }
-}
+    );
+  }  
+};
 
 export default withRouter(SignIn);

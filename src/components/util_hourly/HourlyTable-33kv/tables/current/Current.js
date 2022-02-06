@@ -3,20 +3,6 @@ import { withRouter } from 'react-router-dom';
 import CurrentTable from '../table/Table';
 
 class Current extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      feeders_name: [],
-      report_feeders : ['Lekki', 'Elegushi', 'Waterfront', 'Agungi','Maroko', '21st Cent', 'Igbo Efon', 'Oniru'],
-      profileRow: [],
-      reportFeeder: '',
-      flipFeeder: true,
-      item: ''
-    }
-  }
-  componentDidMount() {
-    //fetch the fe
-  }
 
   render() {
     

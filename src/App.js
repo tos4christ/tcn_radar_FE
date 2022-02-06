@@ -1,59 +1,70 @@
 
 import React from 'react';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Switch, Redirect} from 'react-router-dom';
 import './App.css';
 import './components/css/tables.css';
+import './components/css/style.css';
 import Footer from './components/Footer';
-import Hourly33kv from './components/util_hourly/HourlyTable-33kv/HourlyTable';
-import Hourly132kv from './components/util_hourly/HourlyTable-132kv/HourlyTable';
-import Hourly330kv from './components/util_hourly/HourlyTable-330kv/HourlyTable';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
+import Dashboard from './components/Dashboard';
+import "./components/css/bootstrap.min.css";
+import "./components/css/slicknav.min.css";
+import "./components/css/icofont.css";
+import "./components/css/font-awesome.min.css";
+import "./components/css/responsive.css";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.getEquipment = this.getEquipment.bind(this);
+    this.setUserDetails = this.setUserDetails.bind(this);
+    this.logout = this.logout.bind(this);
     this.state = {
-      station: 'Lekki',
-      feeders: [],
-      transformers: [],
-      lines: [],
-      reactor: []
+      user_details: '',
+      token: '',
+      userName: '',
+      station: '',
+      station_id: ''
     };
   }
   componentDidMount() {
     
   }
-  getEquipment() {
-
+  setUserDetails(details) {
+    console.log(details, 'the details')
+    this.setState({token: details.token});
+    this.setState({userName: details.userName});
+    this.setState({station_id: details.station_id});
+    this.setState({station: details.station})
+  }
+  logout() {
+    this.setState({token: ''});
+    
   }
   render() {
+    console.log(this.state)
     return (
+      
       <Router>
-        <div className="App">
-          <h1>TCN RADAR DATABASE REPOSITORY AND DATA PROCESSING APPLICATION</h1>
-          <nav>
-            <Link to={'/hourly-33kv'}> HOURLY 33KV FEEDERS </Link>
-            <Link to={'/hourly-132kv'}> HOURLY 132KV FEEDERS </Link>
-            <Link to={'/hourly-330kv'}> HOURLY 330KV FEEDERS </Link>
-          </nav>
+        <nav>
+          <Link to='/signup'> Sign Up </Link>
+          <Link to='/signin'> Sign In </Link>
+          <button onClick={this.logout}> Sign Out </button>
+        </nav>        
 
           <Switch >
-            <Route path={'/hourly-33kv'}>
-              <Hourly33kv station={this.state.station} feeders={this.state.feeders} transformers={this.state.transformers} lines={this.state.lines} reactor={this.state.reactor} />
+            <Route path={'/signup'}>
+              <SignUp setUser={this.setUserDetails} />
             </Route>
-            <Route path={'/hourly-132kv'}>
-              <Hourly132kv station={this.state.station} feeders={this.state.feeders} transformers={this.state.transformers} lines={this.state.lines} reactor={this.state.reactor} />
+            <Route path={'/signin'}>
+              <SignIn setUser={this.setUserDetails} />
             </Route>
-            <Route path={'/hourly-330kv'}>
-              <Hourly330kv station={this.state.station} feeders={this.state.feeders} transformers={this.state.transformers} lines={this.state.lines} reactor={this.state.reactor} />
+            <Route path={'/dashboard'}>
+              <Dashboard token={this.state.token} station_id={this.state.station_id} station={this.state.station} feeders={this.state.feeders} transformers={this.state.transformers} lines={this.state.lines} reactor={this.state.reactor} />
             </Route>
 
           </Switch>
-          <Footer />
-        </div>
-
-
-
+          <Footer />        
       </Router>
     );
   }

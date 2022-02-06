@@ -43,7 +43,7 @@ class HourlyTable extends React.Component {
   }
   // This function fetches the 33kv feeder equipments for this station
   fetchFeeders(){  
-    const url = `/equipment?station_id=2&level=33&type=feeder`;
+    const url = `/equipment?station_id=${this.props.station_id}&level=33&type=feeder`;
     fetch(url, {
       method: 'GET',
       mode: 'no-cors',
@@ -104,7 +104,7 @@ class HourlyTable extends React.Component {
   render() {
     return (
       <div>
-      <h1> 33kv panel</h1>
+      <h1>{this.props.station} 33kv panel</h1>
       <nav>
             <Link to={`${this.props.match.url}/current`}> 33kv Current upload </Link>
             <Link to={`${this.props.match.url}/voltage`}> 33kv Voltage upload </Link>
