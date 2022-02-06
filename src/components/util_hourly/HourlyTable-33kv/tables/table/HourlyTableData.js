@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 
 class TableData extends React.Component {
   constructor(props) {

@@ -57,7 +57,7 @@ class HourlyTableBody extends React.Component {
       <tbody ref={node => this.tbody = node} id="table-body">
         {
           this.props.feeders_name.map((feeder_name, i) => {
-            return <HourlyTableRow item={this.props.item} type={this.props.type} date={this.props.date} feeder_name={feeder_name} station={this.props.station} key={feeder_name} />
+            return <HourlyTableRow type={this.props.type} date={this.props.date} feeder_name={feeder_name} station={this.props.station} key={feeder_name} />
           })
         }
       </tbody>

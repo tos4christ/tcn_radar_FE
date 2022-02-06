@@ -10,14 +10,14 @@ class HourlyTable extends React.Component {
   constructor(props) {
     super(props);
     this.addFeeder = this.addFeeder.bind(this);
-    this.openCity = this.openCity.bind(this);
-    this.setTabs = this.setTabs.bind(this);
+    this.removeFeeder = this.removeFeeder.bind(this);
     this.printProfile = this.printProfile.bind(this);
     this.feederReport = this.feederReport.bind(this);
     this.flipFeeder = this.flipFeeder.bind(this);
+    this.fetchFeeders = this.fetchFeeders.bind(this);
     this.state = {
       feeders_name: [],
-      report_feeders : ['Lekki', 'Elegushi', 'Waterfront', 'Agungi','Maroko', '21st Cent', 'Igbo Efon', 'Oniru'],
+      report_feeders : [],
       profileRow: [],
       reportFeeder: '',
       flipFeeder: true,
@@ -25,8 +25,11 @@ class HourlyTable extends React.Component {
     }
   }
   componentDidMount() {
-    // Hide all the tabcontents and remove the active class from their links
-    //this.setTabs();
+    this._isMounted = true;
+    this._isMounted && this.fetchFeeders();
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
   }
   flipFeeder(event) {
     const showFeeder = this.state.flipFeeder ? true : false;
@@ -37,6 +40,26 @@ class HourlyTable extends React.Component {
       this.removeFeeder(event)
       this.setState({flipFeeder : true})
     }
+  }
+  // This function fetches the 33kv feeder equipments for this station
+  fetchFeeders(){  
+    const url = `/equipment?station_id=2&level=33&type=feeder`;
+    fetch(url, {
+      method: 'GET',
+      mode: 'no-cors',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(res => this.setState( prevState => {
+      const  resp = res.res;
+      const feederArray = [];
+      resp.map( res => feederArray.push(res.name))
+       prevState.report_feeders = feederArray;
+       return { report_feeders: prevState.report_feeders};
+    })); 
   }
   addFeeder(event) {
     // store the text content of the feeder in variable name
@@ -58,46 +81,6 @@ class HourlyTable extends React.Component {
     this.setState(prevState => {
       const feeders_name = prevState.feeders_name.filter( feeder => name !== feeder);
       return {feeders_name: feeders_name};
-    })
-  }
-  setTabs() {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }   
-  }
-  // OPEN CITY FUNCTION
-  openCity(event, cityName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-  
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    // Show the current tab, and add an "active" class to the link that opened the tab
-    document.getElementById(cityName).style.display = "block";
-    event.currentTarget.className += " active";
-    this.setState(prevState => {
-      prevState.item = cityName
-      return {item: prevState.item}
     })
   }
   printProfile() {
