@@ -46,8 +46,7 @@ class App extends React.Component {
         <nav>
           <Link to='/signup'> Sign Up </Link>
           <Link to='/signin'> Sign In </Link>
-        </nav>        
-
+        </nav>
           <Switch >
             <Route path={'/signup'}>
               <SignUp />
@@ -58,7 +57,6 @@ class App extends React.Component {
             <Route path={'/dashboard'}>
               <Dashboard token={this.state.token} station_id={this.state.station_id} station={this.state.station} feeders={this.state.feeders} transformers={this.state.transformers} lines={this.state.lines} reactor={this.state.reactor} />
             </Route>
-
           </Switch>
           <Footer />        
       </Router>
