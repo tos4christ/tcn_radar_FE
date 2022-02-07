@@ -21,7 +21,7 @@ class TableData extends React.Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.date !== this.props.date) {
-      this.fetchReadings()
+      this._isMounted && this.fetchReadings()
     }
   }  
   // This function fetches the amp value for each column coresponding to an hour

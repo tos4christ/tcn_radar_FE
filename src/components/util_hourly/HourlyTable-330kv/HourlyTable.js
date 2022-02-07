@@ -18,85 +18,16 @@ class HourlyTable extends React.Component {
     this.printProfile = this.printProfile.bind(this);
     this.feederReport = this.feederReport.bind(this);
     this.flipFeeder = this.flipFeeder.bind(this);
-    this.fetchLines = this.fetchLines.bind(this);
-    this.fetchReactors = this.fetchReactors.bind(this);
-    this.fetchTransformers = this.fetchTransformers.bind(this);
     this.state = {
       feeders_name: [],
       report_feeders : [],
       profileRow: [],
       reportFeeder: '',
       flipFeeder: true,
-      reactors : [],
-      transformers:[],
-      lines:[]
+      reactors : localStorage.getItem("reactors_330"),
+      transformers: localStorage.getItem("txfrs_330"),
+      lines: localStorage.getItem("lines_330")
     }
-  }
-  componentDidMount() {
-    this._isMounted = true;
-    this._isMounted && this.fetchLines();
-    this._isMounted && this.fetchReactors();
-    this._isMounted && this.fetchTransformers();
-  }
-  componentWillUnmount() {
-    this._isMounted = true;
-  }
-  fetchLines(){  
-    const url = `/equipment?station_id=2&level=330&type=line`;
-    fetch(url, {
-      method: 'GET',
-      mode: 'no-cors',
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => response.json())
-    .then(res => this.setState( prevState => {
-      const  resp = res.res;
-      const feederArray = [];
-      resp.map( res => feederArray.push(res.name))
-       prevState.lines = feederArray;
-       return { lines: prevState.lines};
-    })); 
-  }
-  fetchTransformers(){  
-    const url = `/equipment?station_id=2&level=330&type=txfr`;
-    fetch(url, {
-      method: 'GET',
-      mode: 'no-cors',
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => response.json())
-    .then(res => this.setState( prevState => {
-      const  resp = res.res;
-      const feederArray = [];
-      resp.map( res => feederArray.push(res.name))
-       prevState.transformers = feederArray;
-       return { transformers: prevState.transformers};
-    })); 
-  }
-  fetchReactors(){  
-    const url = `/equipment?station_id=2&level=330&type=reactor`;
-    fetch(url, {
-      method: 'GET',
-      mode: 'no-cors',
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => response.json())
-    .then(res => this.setState( prevState => {
-      const  resp = res.res;
-      const feederArray = [];
-      resp.map( res => feederArray.push(res.name))
-       prevState.reactor = feederArray;
-       return { reactor: prevState.reactor};
-    })); 
   }
   flipFeeder(event) {
     const showFeeder = this.state.flipFeeder ? true : false;
@@ -148,7 +79,10 @@ class HourlyTable extends React.Component {
     })
   }
 
-  render() {    
+  render() {
+    const reactors = this.state.reactors.split(',');
+    const txfrs = this.state.transformers.split(',');
+    const lines = this.state.lines.split(',');
     return (
       <div>
       <h1> 330kv panel</h1>       
@@ -170,49 +104,49 @@ class HourlyTable extends React.Component {
         <Route path={`${this.props.match.path}/linecurrent`}>
           {/* Hourly Line current inputs */}
           <div id="linecurrent" className="tabcontent">
-            <LineCurrentTable type='line_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.lines} feeders_name={this.state.feeders_name} />                        
+            <LineCurrentTable type='line_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={lines} feeders_name={this.state.feeders_name} />                        
           </div>
         </Route>
         <Route path={`${this.props.match.path}/linevoltage`}>
           {/* Hourly Line voltage inputs */}
           <div id="linevoltage" className="tabcontent">
-            <LineVoltageTable type='line_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.lines} feeders_name={this.state.feeders_name} />                        
+            <LineVoltageTable type='line_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={lines} feeders_name={this.state.feeders_name} />                        
           </div>
         </Route>
         <Route path={`${this.props.match.path}/linepower`}>
           {/* Hourly Line power inputs */}
           <div id="linepower" className="tabcontent">
-            <LinePowerTable type='line_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.lines} feeders_name={this.state.feeders_name} />                        
+            <LinePowerTable type='line_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={lines} feeders_name={this.state.feeders_name} />                        
           </div>
         </Route>
         <Route path={`${this.props.match.path}/txfrcurrent`}>
           {/* Hourly Transformer current inputs */}
           <div id="txfrcurrent" className="tabcontent">
-            <TxCurrentTable type='txfr_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.transformers} feeders_name={this.state.feeders_name} />                        
+            <TxCurrentTable type='txfr_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={txfrs} feeders_name={this.state.feeders_name} />                        
           </div>
         </Route>
         <Route path={`${this.props.match.path}/txfrvoltage`}>
           {/* Hourly Transformer voltage inputs */}
           <div id="txfrvoltage" className="tabcontent">
-            <TxVoltageTable type='txfr_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.transformers} feeders_name={this.state.feeders_name} />                        
+            <TxVoltageTable type='txfr_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={txfrs} feeders_name={this.state.feeders_name} />                        
           </div>
         </Route>
         <Route path={`${this.props.match.path}/txfrpower`}>
           {/* Hourly Transformer power inputs */}
           <div id="txfrpower" className="tabcontent">
-            <TxPowerTable type='txfr_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.transformers} feeders_name={this.state.feeders_name} />                        
+            <TxPowerTable type='txfr_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={txfrs} feeders_name={this.state.feeders_name} />                        
           </div>
         </Route>
         <Route path={`${this.props.match.path}/txfrtap`}>
           {/* Hourly Transformer tap inputs */}
           <div id="txfrtap" className="tabcontent">
-            <TxTapTable type='txfr_tap' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.transformers} feeders_name={this.state.feeders_name} />                        
+            <TxTapTable type='txfr_tap' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={txfrs} feeders_name={this.state.feeders_name} />                        
           </div>
         </Route>
         <Route path={`${this.props.match.path}/reactor`}>
           {/* Hourly Reactor Mx inputs */}
           <div id="reactor" className="tabcontent">
-            <MxTable type='reactor_mx' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.reactors} feeders_name={this.state.feeders_name} />                        
+            <MxTable type='reactor_mx' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={reactors} feeders_name={this.state.feeders_name} />                        
           </div>
         </Route>
         <Route path={`${this.props.match.path}/profile`}>
@@ -246,7 +180,7 @@ class HourlyTable extends React.Component {
             <h3 className='mb-0 mt-0'> Reports </h3>
             <section className="no-style">              
               <div className="sub-10">                                   
-                {this.state.lines.map( (feeder, i) => {
+                {lines.map( (feeder, i) => {
                   return (
                     <div key={i} className="li-content">
                       <div className="feeder-label" >
@@ -268,7 +202,7 @@ class HourlyTable extends React.Component {
             <h3 className='mb-0 mt-0'> Reports </h3>
             <section className="no-style">              
               <div className="sub-10">                                   
-                {this.state.lines.map( (feeder, i) => {
+                {lines.map( (feeder, i) => {
                   return (
                     <div key={i} className="li-content">
                       <div className="feeder-label" >

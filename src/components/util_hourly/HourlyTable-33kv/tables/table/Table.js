@@ -8,19 +8,18 @@ class Table extends React.Component {
     super(props);
     this.setDate = this.setDate.bind(this);
     this.state = {
-      date: ''
+      date: '',
+      feeder_link: this.props.feeder_link
     }
-  }
-  
-  componentDidMount() {
-    const date = new Date();
-    const newDate = `${date.getFullYear()}-0${date.getMonth()+1}-${date.getDate()}`;
+  }  
+  componentDidMount() {    
+    var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const newDate = new Date().toLocaleDateString("en-US", options).split('/').reverse().join('-');
     this.setState(prevState => {
       prevState.date = newDate
       return {date: prevState.date}
-    })
+    });
   }
-
   setDate() {
     this.setState(prevState => {
       prevState.date =  this.selectedDate.value;
@@ -28,14 +27,14 @@ class Table extends React.Component {
     })
   }
 
-  render() {    
+  render() {
     return (
       // props == type, feeders_name, station
         <div>
         {/* Select a date to usein getting the data */}
         <input type={'date'} onChange={this.setDate} ref={node => this.selectedDate = node } defaultValue={this.state.date} ></input>
         <div className="block-display">
-        {this.props.feeder_link.map( (feeder, i) => {
+        {this.state.feeder_link.map( (feeder, i) => {
             return <button onClick={this.props.flipFeeder} key={i}>{feeder}</button>
         })}            
         </div>

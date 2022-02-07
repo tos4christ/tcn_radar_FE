@@ -13,8 +13,8 @@ class Table extends React.Component {
   }
   
   componentDidMount() {
-    const date = new Date();
-    const newDate = `${date.getFullYear()}-0${date.getMonth()+1}-${date.getDate()}`;
+    var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const newDate = new Date().toLocaleDateString("en-US", options).split('/').reverse().join('-');
     this.setState(prevState => {
       prevState.date = newDate
       return {date: prevState.date}

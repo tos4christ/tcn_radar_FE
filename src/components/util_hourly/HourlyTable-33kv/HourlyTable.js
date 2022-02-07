@@ -14,22 +14,13 @@ class HourlyTable extends React.Component {
     this.printProfile = this.printProfile.bind(this);
     this.feederReport = this.feederReport.bind(this);
     this.flipFeeder = this.flipFeeder.bind(this);
-    this.fetchFeeders = this.fetchFeeders.bind(this);
     this.state = {
       feeders_name: [],
-      report_feeders : [],
       profileRow: [],
       reportFeeder: '',
       flipFeeder: true,
-      item: ''
+      feederArray: localStorage.getItem("feeders")
     }
-  }
-  componentDidMount() {
-    this._isMounted = true;
-    this._isMounted && this.fetchFeeders();
-  }
-  componentWillUnmount() {
-    this._isMounted = false;
   }
   flipFeeder(event) {
     const showFeeder = this.state.flipFeeder ? true : false;
@@ -40,26 +31,6 @@ class HourlyTable extends React.Component {
       this.removeFeeder(event)
       this.setState({flipFeeder : true})
     }
-  }
-  // This function fetches the 33kv feeder equipments for this station
-  fetchFeeders(){  
-    const url = `/equipment?station_id=${this.props.station_id}&level=33&type=feeder`;
-    fetch(url, {
-      method: 'GET',
-      mode: 'no-cors',
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => response.json())
-    .then(res => this.setState( prevState => {
-      const  resp = res.res;
-      const feederArray = [];
-      resp.map( res => feederArray.push(res.name))
-       prevState.report_feeders = feederArray;
-       return { report_feeders: prevState.report_feeders};
-    })); 
   }
   addFeeder(event) {
     // store the text content of the feeder in variable name
@@ -102,6 +73,7 @@ class HourlyTable extends React.Component {
   }
 
   render() {
+    const feedlink = this.state.feederArray.split(',');
     return (
       <div>
       <h1>{this.props.station} 33kv panel</h1>
@@ -118,19 +90,19 @@ class HourlyTable extends React.Component {
         <Route path={`${this.props.match.path}/current`}>
           {/* Hourly Current inputs */}
           <div id="current" className="tabcontent">
-            <CurrentTable item={this.state.item} type='feeder_current' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} /> 
+            <CurrentTable feeders={feedlink} type='feeder_current' station={this.props.station} flipFeeder={this.flipFeeder} feeders_name={this.state.feeders_name} /> 
           </div>
         </Route>
         <Route path={`${this.props.match.path}/voltage`}>
           {/* Hourly Voltage inputs */}
           <div id="voltage" className="tabcontent">
-            <VoltageTable item={this.state.item} type='feeder_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <VoltageTable feeders={feedlink} type='feeder_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeders_name={this.state.feeders_name} />                        
           </div>
         </Route>
         <Route path={`${this.props.match.path}/power`}>
           {/* Hourly Power inputs */}
           <div id="power" className="tabcontent">
-            <PowerTable item={this.state.item} type='feeder_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={this.state.report_feeders} feeders_name={this.state.feeders_name} />                        
+            <PowerTable feeders={feedlink} type='feeder_power' station={this.props.station} flipFeeder={this.flipFeeder} feeders_name={this.state.feeders_name} />                        
           </div>
         </Route>
         <Route path={`${this.props.match.path}/profile`}>
@@ -164,7 +136,7 @@ class HourlyTable extends React.Component {
             <h3 className='mb-0 mt-0'> Reports </h3>
             <section className="no-style">              
               <div className="sub-10">                                   
-                {this.state.report_feeders.map( (feeder, i) => {
+                {feedlink.map( (feeder, i) => {
                   return (
                     <div key={i} className="li-content">
                       <div className="feeder-label" >
@@ -172,7 +144,7 @@ class HourlyTable extends React.Component {
                       </div>
                     </div>
                   )
-                })}                    
+                })}
               </div>
               <div className='sub-90'>
                   <Reports feeder={this.state.reportFeeder}/>
@@ -186,7 +158,7 @@ class HourlyTable extends React.Component {
             <h3 className='mb-0 mt-0'> Reports </h3>
             <section className="no-style">              
               <div className="sub-10">                                   
-                {this.state.report_feeders.map( (feeder, i) => {
+                {feedlink.map( (feeder, i) => {
                   return (
                     <div key={i} className="li-content">
                       <div className="feeder-label" >
@@ -194,7 +166,7 @@ class HourlyTable extends React.Component {
                       </div>
                     </div>
                   )
-                })}                    
+                })}
               </div>
               <div className='sub-90'>
                   <Reports feeder={this.state.reportFeeder}/>

@@ -35,8 +35,8 @@ class Reports extends React.Component {
   }
   postReport(e) {
     e.preventDefault();
-    const date = new Date();
-    const newDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const newDate = new Date().toLocaleDateString("en-US", options).split('/').reverse().join('-');
     const feedername = this.feederName.innerText;
     const reporttype = this.reportType.value;
     const partyresponsible = this.partyResponsible.value;

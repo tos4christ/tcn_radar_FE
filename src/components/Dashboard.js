@@ -8,7 +8,6 @@ import Hourly330kv from './util_hourly/HourlyTable-330kv/HourlyTable';
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.getEquipment = this.getEquipment.bind(this);
     this.logout =  this.logout.bind(this);
     this.state = {
       station: '',
@@ -20,26 +19,6 @@ class Dashboard extends React.Component {
       token: '',
       userName: ''
     };
-  }
-  componentDidMount() {
-    this._isMounted = true;
-    this._isMounted && this.setState(prevState => {
-    const station = localStorage.getItem("station");
-    const station_id = localStorage.getItem("station_id");
-    const token = localStorage.getItem("token");
-    const userName = localStorage.getItem("userName");
-      prevState.station = station;
-      prevState.station_id = station_id;
-      prevState.token = token;
-      prevState.userName = userName;
-      return {station: prevState.station, station_id: prevState.station_id, token: prevState.token, userName: prevState.userName}
-    })
-  }
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-  getEquipment() {
-
   }
   logout() {
     this.setState(prevState => {
@@ -62,13 +41,13 @@ class Dashboard extends React.Component {
 
           <Switch >
             <Route path={`${this.props.match.path}/hourly-33kv`}>
-              <Hourly33kv station_id={this.state.station_id} station={this.state.station} feeders={this.state.feeders} transformers={this.state.transformers} lines={this.state.lines} reactor={this.state.reactor} />
+              <Hourly33kv station_id={this.state.station_id} station={this.state.station} feeders={this.state.feeders} />
             </Route>
             <Route path={`${this.props.match.path}/hourly-132kv`}>
-              <Hourly132kv station_id={this.state.station_id} station={this.state.station} feeders={this.state.feeders} transformers={this.state.transformers} lines={this.state.lines} reactor={this.state.reactor} />
+              <Hourly132kv station_id={this.state.station_id} station={this.state.station} transformers={this.state.transformers} lines={this.state.lines} reactors={this.state.reactor} />
             </Route>
             <Route path={`${this.props.match.path}/hourly-330kv`}>
-              <Hourly330kv station_id={this.state.station_id} station={this.state.station} feeders={this.state.feeders} transformers={this.state.transformers} lines={this.state.lines} reactor={this.state.reactor} />
+              <Hourly330kv station_id={this.state.station_id} station={this.state.station} transformers={this.state.transformers} lines={this.state.lines} reactors={this.state.reactor} />
             </Route>
 
           </Switch>
