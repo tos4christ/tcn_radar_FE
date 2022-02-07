@@ -61,8 +61,7 @@ class HourlyTable extends React.Component {
         prevState.profileRow = this.state.feeders_name.map( feeder => <ProfileRow type='' key={feeder} feeder_name={feeder} /> );
         return {profileRow : prevState.profileRow} 
       })
-    } else this.setState({profileRow: []})
-    
+    } else this.setState({profileRow: []});    
   }
   feederReport(e) {
     e.preventDefault();
@@ -71,111 +70,108 @@ class HourlyTable extends React.Component {
       return {reportFeeder: prevState.reportFeeder}
     })
   }
-
   render() {
     const feedlink = this.state.feederArray.split(',');
     return (
       <div>
-      <h1>{this.props.station} 33kv panel</h1>
-      <nav>
-            <Link to={`${this.props.match.url}/current`}> 33kv Current upload </Link>
-            <Link to={`${this.props.match.url}/voltage`}> 33kv Voltage upload </Link>
-            <Link to={`${this.props.match.url}/power`}> 33kv Power Upload </Link>
-            <Link to={`${this.props.match.url}/profile`}> 33kv Profile download </Link>
-            <Link to={`${this.props.match.url}/reports`}> 33kv Report upload </Link>
-            <Link to={`${this.props.match.url}/outages`}> 33kv Outage request upload </Link>
-      </nav>              
-    
-      <Switch>
-        <Route path={`${this.props.match.path}/current`}>
-          {/* Hourly Current inputs */}
-          <div id="current" className="tabcontent">
-            <CurrentTable feeders={feedlink} type='feeder_current' station={this.props.station} flipFeeder={this.flipFeeder} feeders_name={this.state.feeders_name} /> 
-          </div>
-        </Route>
-        <Route path={`${this.props.match.path}/voltage`}>
-          {/* Hourly Voltage inputs */}
-          <div id="voltage" className="tabcontent">
-            <VoltageTable feeders={feedlink} type='feeder_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeders_name={this.state.feeders_name} />                        
-          </div>
-        </Route>
-        <Route path={`${this.props.match.path}/power`}>
-          {/* Hourly Power inputs */}
-          <div id="power" className="tabcontent">
-            <PowerTable feeders={feedlink} type='feeder_power' station={this.props.station} flipFeeder={this.flipFeeder} feeders_name={this.state.feeders_name} />                        
-          </div>
-        </Route>
-        <Route path={`${this.props.match.path}/profile`}>
-          {/* Profile */}
-          <div id="profile" className="tabcontent">
-            <div className="profile-div">
-              <button onClick={this.printProfile}>
-                Print Feeder Profile
-              </button>
-              <table className="tg">
-                <thead>
-                  <tr>
-                    <th className="tg-zb4j">FEEDER</th>
-                    <th className="tg-zb4j">Max Amps</th>
-                    <th className="tg-zb4j">Max Time</th>                    
-                  </tr>                
-                </thead>
-                <tbody>            
-                  {this.state.profileRow}
-                </tbody>
-              </table>
+        <h1>{this.props.station} 33kv panel</h1>
+        <nav className='flex-container'>
+          <Link to={`${this.props.match.url}/current`}> Feeder Current </Link>
+          <Link to={`${this.props.match.url}/voltage`}> Feeder Voltage </Link>
+          <Link to={`${this.props.match.url}/power`}> Feeder Power </Link>
+          <Link to={`${this.props.match.url}/profile`}> Profile </Link>
+          <Link to={`${this.props.match.url}/reports`}> Report </Link>
+          <Link to={`${this.props.match.url}/outages`}> Outage request </Link>
+        </nav>    
+        <Switch>
+          <Route path={`${this.props.match.path}/current`}>
+            {/* Hourly Current inputs */}
+            <div id="current" className="tabcontent">
+              <CurrentTable feeders={feedlink} type='feeder_current' station={this.props.station} flipFeeder={this.flipFeeder} feeders_name={this.state.feeders_name} /> 
             </div>
-            <div className="sla-div">
+          </Route>
+          <Route path={`${this.props.match.path}/voltage`}>
+            {/* Hourly Voltage inputs */}
+            <div id="voltage" className="tabcontent">
+              <VoltageTable feeders={feedlink} type='feeder_voltage' station={this.props.station} flipFeeder={this.flipFeeder} feeders_name={this.state.feeders_name} />                        
+            </div>
+          </Route>
+          <Route path={`${this.props.match.path}/power`}>
+            {/* Hourly Power inputs */}
+            <div id="power" className="tabcontent">
+              <PowerTable feeders={feedlink} type='feeder_power' station={this.props.station} flipFeeder={this.flipFeeder} feeders_name={this.state.feeders_name} />                        
+            </div>
+          </Route>
+          <Route path={`${this.props.match.path}/profile`}>
+            {/* Profile */}
+            <div id="profile" className="tabcontent">
+              <div className="profile-div">
+                <button onClick={this.printProfile}>
+                  Print Feeder Profile
+                </button>
+                <table className="tg">
+                  <thead>
+                    <tr>
+                      <th className="tg-zb4j">FEEDER</th>
+                      <th className="tg-zb4j">Max Amps</th>
+                      <th className="tg-zb4j">Max Time</th>                    
+                    </tr>                
+                  </thead>
+                  <tbody>            
+                    {this.state.profileRow}
+                  </tbody>
+                </table>
+              </div>
+              <div className="sla-div">
 
+              </div>
             </div>
-          </div>
-        </Route>
-        <Route path={`${this.props.match.path}/reports`}>
-          {/* Reports */}
-          <div id="reports" className="tabcontent">
-            <h3 className='mb-0 mt-0'> Reports </h3>
-            <section className="no-style">              
-              <div className="sub-10">                                   
-                {feedlink.map( (feeder, i) => {
-                  return (
-                    <div key={i} className="li-content">
-                      <div className="feeder-label" >
-                        <label onClick={this.feederReport} >{feeder}</label>
+          </Route>
+          <Route path={`${this.props.match.path}/reports`}>
+            {/* Reports */}
+            <div id="reports" className="tabcontent">
+              <h3 className='mb-0 mt-0'> Reports </h3>
+              <section className="no-style">              
+                <div className="sub-10">                                   
+                  {feedlink.map( (feeder, i) => {
+                    return (
+                      <div key={i} className="li-content">
+                        <div className="feeder-label" >
+                          <label onClick={this.feederReport} >{feeder}</label>
+                        </div>
                       </div>
-                    </div>
-                  )
-                })}
-              </div>
-              <div className='sub-90'>
-                  <Reports feeder={this.state.reportFeeder}/>
-              </div> 
-            </section>            
-          </div>
-        </Route>
-        <Route path={`${this.props.match.path}/outages`}>
-          {/* Outage request */}
-          <div id="outages" className="tabcontent">
-            <h3 className='mb-0 mt-0'> Reports </h3>
-            <section className="no-style">              
-              <div className="sub-10">                                   
-                {feedlink.map( (feeder, i) => {
-                  return (
-                    <div key={i} className="li-content">
-                      <div className="feeder-label" >
-                        <label onClick={this.feederReport} >{feeder}</label>
+                    )
+                  })}
+                </div>
+                <div className='sub-90'>
+                    <Reports feeder={this.state.reportFeeder}/>
+                </div> 
+              </section>            
+            </div>
+          </Route>
+          <Route path={`${this.props.match.path}/outages`}>
+            {/* Outage request */}
+            <div id="outages" className="tabcontent">
+              <h3 className='mb-0 mt-0'> Reports </h3>
+              <section className="no-style">              
+                <div className="sub-10">                                   
+                  {feedlink.map( (feeder, i) => {
+                    return (
+                      <div key={i} className="li-content">
+                        <div className="feeder-label" >
+                          <label onClick={this.feederReport} >{feeder}</label>
+                        </div>
                       </div>
-                    </div>
-                  )
-                })}
-              </div>
-              <div className='sub-90'>
-                  <Reports feeder={this.state.reportFeeder}/>
-              </div> 
-            </section>            
-          </div>
-        </Route>
-      </Switch>        
-        
+                    )
+                  })}
+                </div>
+                <div className='sub-90'>
+                    <Reports feeder={this.state.reportFeeder}/>
+                </div> 
+              </section>            
+            </div>
+          </Route>
+        </Switch>        
       </div>
     )
   }

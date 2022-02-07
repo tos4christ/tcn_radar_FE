@@ -32,7 +32,7 @@ class Table extends React.Component {
       // props == type, feeders_name, station
         <div>
         {/* Select a date to usein getting the data */}
-        <input type={'date'} onChange={this.setDate} ref={node => this.selectedDate = node } defaultValue={this.state.date} ></input>
+        <input className='date-input' type={'date'} onChange={this.setDate} ref={node => this.selectedDate = node } defaultValue={this.state.date} ></input>
         <div className="block-display">
         {this.state.feeder_link.map( (feeder, i) => {
             return <button onClick={this.props.flipFeeder} key={i}>{feeder}</button>

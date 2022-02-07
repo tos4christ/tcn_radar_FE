@@ -23,6 +23,22 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.date-input {
+  width: fit-content;
+  margin-top: 10px;
+}
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  background-color: #61dafb;
+  align-items: baseline;
+}
+.flex-container a {
+  margin: 10px;
+  background-color: bisque;
+  padding: 5px;
+}
 
 .App-link {
   color: #61dafb;
