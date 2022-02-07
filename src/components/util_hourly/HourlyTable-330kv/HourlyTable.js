@@ -8,6 +8,7 @@ import LinePowerTable from './tables/lines/power/Power';
 import TxCurrentTable from './tables/transformers/current/Current';
 import TxVoltageTable from './tables/transformers/voltage/Voltage';
 import TxPowerTable from './tables/transformers/power/Power';
+import TxMxTable from './tables/transformers/mx/TxfrMx';
 import TxTapTable from './tables/transformers/tap_position/Tap';
 import MxTable from './tables/reactor/mx/Mx';
 
@@ -91,6 +92,7 @@ class HourlyTable extends React.Component {
             <Link to={`${this.props.match.url}/txfrcurrent`}> Transformer Current </Link>
             <Link to={`${this.props.match.url}/txfrvoltage`}> Transformer Voltage </Link>
             <Link to={`${this.props.match.url}/txfrpower`}> Transformer Power </Link>
+            <Link to={`${this.props.match.url}/txfrmx`}> Transformer MX </Link>
             <Link to={`${this.props.match.url}/txfrtap`}> Transformer Tap </Link>
             <Link to={`${this.props.match.url}/reactor`}> Reactor MX </Link>
             <Link to={`${this.props.match.url}/profile`}> Profile </Link>
@@ -132,6 +134,12 @@ class HourlyTable extends React.Component {
             {/* Hourly Transformer power inputs */}
             <div id="txfrpower" className="tabcontent">
               <TxPowerTable type='txfr_power' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={txfrs} feeders_name={this.state.feeders_name} />                        
+            </div>
+          </Route>
+          <Route path={`${this.props.match.path}/txfrmx`}>
+            {/* Hourly Transformer power inputs */}
+            <div id="txfrmx" className="tabcontent">
+              <TxMxTable type='txfr_mx' station={this.props.station} flipFeeder={this.flipFeeder} feeder_link={txfrs} feeders_name={this.state.feeders_name} />                        
             </div>
           </Route>
           <Route path={`${this.props.match.path}/txfrtap`}>
