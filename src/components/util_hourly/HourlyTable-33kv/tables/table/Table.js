@@ -14,7 +14,7 @@ class Table extends React.Component {
   }  
   componentDidMount() {    
     var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    const newDate = new Date().toLocaleDateString("en-US", options).split('/').reverse().join('-');
+    const newDate = new Date().toLocaleDateString("en-GB", options).split('/').reverse().join('-');
     this.setState(prevState => {
       prevState.date = newDate
       return {date: prevState.date}
@@ -26,7 +26,6 @@ class Table extends React.Component {
       return {date: prevState.date};
     })
   }
-
   render() {
     return (
       // props == type, feeders_name, station
