@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import HourlyTableData from './HourlyTableData';
 
 class HourlyTableRow extends React.Component {

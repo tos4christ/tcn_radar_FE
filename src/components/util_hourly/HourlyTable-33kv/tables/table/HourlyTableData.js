@@ -24,6 +24,17 @@ class TableData extends React.Component {
       this._isMounted && this.fetchReadings()
     }
   }  
+  matchValue(value) {
+    let val;
+    if(value === 'current') {
+      val = 'amp'
+    } else if(value === 'voltage') {
+      val = 'kv'
+    } else if(value === 'power') {
+      val = 'mw';
+    } else val = 'undefined';
+    return val;
+  }
   // This function fetches the amp value for each column coresponding to an hour
   fetchReadings() {
     const type = this.props.type.split('_');
@@ -38,11 +49,12 @@ class TableData extends React.Component {
     })
     .then(response => response.json())
     .then(res => this.setState( prevState => {
-      let val;
+      let val, unit;
+      unit = this.matchValue(type[1])
       const  resp = new Object(res.res);
-      if(resp.amp === 0) {
+      if(resp[unit] === 0) {
         val = '';
-      } else val = resp.amp;
+      } else val = resp[unit];
       // consider using the prevState to store the db value and see if it changes the performance
        prevState.value = val;
        return { value: prevState.value};
