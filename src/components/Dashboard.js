@@ -10,7 +10,7 @@ class Dashboard extends React.Component {
     super(props);
     this.logout =  this.logout.bind(this);
     this.state = {
-      station: '',
+      station: localStorage.getItem("station"),
       station_id: '',
       feeders: [],
       transformers: [],
