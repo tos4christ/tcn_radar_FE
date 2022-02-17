@@ -19,6 +19,7 @@ class App extends React.Component {
     super(props);
     this.setUserDetails = this.setUserDetails.bind(this);
     this.register = this.register.bind(this);
+    this.getLines = this.getLines.bind(this);
     this.state = {
       user_details: '',
       token: '',
@@ -34,6 +35,9 @@ class App extends React.Component {
       txfrs_330: '',
       display: 'block'
     };
+  }
+  componentDidMount() {
+    
   }
   setUserDetails() {
     const station = localStorage.getItem("station");
@@ -59,6 +63,9 @@ class App extends React.Component {
     this.setState({lines_330: lines_330});
     this.setState({reactors_132: reactors_132});
     this.setState({reactors_330: reactors_330});
+
+  }
+  getLines() {
 
   }
   register() {
