@@ -51,7 +51,17 @@ class NCC extends React.Component {
                 const lineData = data[station][line];
                 lineData.forEach((tdd, index) => {
                     tdl.push(<td style={{border: '2px solid brown', padding: '2px', width: '10px', height: '10px'}} key={`a${index}`}>{tdd.mw}</td>)
-                })
+                });
+                // get the maximum of the line data and hour
+                let  max = 0, maxMw, objectKeys = Object.keys(lineData);
+                console.log(objectKeys)
+                for (let i = 0; i < objectKeys.length; i++) {
+                    if (lineData[i].mw > max) {
+                        max = lineData[i].mw;
+                        maxMw = lineData[i];
+                    }
+                }
+                console.log(maxMw)
                 tr.push(<tr key={`d${stationIndex}-${lineIndex}`}>{tdl}</tr>)
             })
             tableRow.push(tr);
