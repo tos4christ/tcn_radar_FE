@@ -13,6 +13,7 @@ import "./components/css/slicknav.min.css";
 import "./components/css/icofont.css";
 import "./components/css/font-awesome.min.css";
 import "./components/css/responsive.css";
+import NCC from './components/NccDisplay'
 
 class App extends React.Component {
   constructor(props) {
@@ -77,7 +78,10 @@ class App extends React.Component {
         <nav style={{'display': this.state.display}}>
           <Link to='/signup'> Sign Up </Link>
           <Link to='/signin'> Sign In </Link>
-        </nav>        
+        </nav>
+        <div>
+            <NCC />
+        </div>
           <Switch >
             <Route path={'/signup'}>
               <SignUp />
