@@ -66,6 +66,7 @@ class TableData extends React.Component {
     const type = this.props.type.split('_');
     const url = `/${type[1]}?feeder_name=${this.props.feeder_name}&${type[1]}_id=${this.props.id}&level=132&type=${type[0]}&station=${this.props.station}&date=${this.props.date}`;
     let data = event.target.innerHTML;
+    const isEmpty = data.length === 0 ? true : false;
     data = Number(data) === 0 || isNaN(Number(data)) ? 0 : Number(data);
     const id = `${this.props.id}`;
     const name =  `${type[1]}_id`;
@@ -73,7 +74,7 @@ class TableData extends React.Component {
     const feeder_name = this.props.feeder_name;
     const date = this.props.date;
     const station = this.props.station
-    const bodyData = {data: data, feeder_name: feeder_name, name: name, id: id, level: 33, types: types,station: station, date: date};
+    const bodyData = {data: data, feeder_name: feeder_name, name: name, id: id, level: 33, types: types,station: station, date: date, update: isEmpty};
     this.persistReadings(url, bodyData);
   }
    // Use this code to persist data to the database. 
