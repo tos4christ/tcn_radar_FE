@@ -20,7 +20,6 @@ class App extends React.Component {
     super(props);
     this.setUserDetails = this.setUserDetails.bind(this);
     this.register = this.register.bind(this);
-    this.getLines = this.getLines.bind(this);
     this.state = {
       user_details: '',
       token: '',
@@ -66,9 +65,6 @@ class App extends React.Component {
     this.setState({reactors_330: reactors_330});
 
   }
-  getLines() {
-
-  }
   register() {
     this.setState({display : 'none'});
   }
@@ -78,22 +74,23 @@ class App extends React.Component {
         <nav style={{'display': this.state.display}}>
           <Link to='/signup'> Sign Up </Link>
           <Link to='/signin'> Sign In </Link>
-        </nav>
-        <div>
-            <NCC />
-        </div>
-          <Switch >
-            <Route path={'/signup'}>
-              <SignUp />
-            </Route>
-            <Route path={'/signin'}>
-              <SignIn setUser={this.setUserDetails} />
-            </Route>
-            <Route path={'/dashboard'}>
-              <Dashboard register={this.register} token={this.state.token} station_id={this.state.station_id} station={this.state.station} feeders={this.state.feeders} transformers={this.state.txfrs} lines={this.state.lines} reactors={this.state.reactors} />
-            </Route>
-          </Switch>
-          <Footer />        
+          <Link to='/ncc'> NCC Display </Link>
+        </nav>        
+        <Switch >
+          <Route path={'/signup'}>
+            <SignUp />
+          </Route>
+          <Route path={'/signin'}>
+            <SignIn setUser={this.setUserDetails} />
+          </Route>
+          <Route path={'/dashboard'}>
+            <Dashboard register={this.register} token={this.state.token} station_id={this.state.station_id} station={this.state.station} feeders={this.state.feeders} transformers={this.state.txfrs} lines={this.state.lines} reactors={this.state.reactors} />
+          </Route>
+          <Route path={'/ncc'}>           
+            <NCC />            
+          </Route>
+        </Switch>
+        <Footer />        
       </Router>
     );
   }
