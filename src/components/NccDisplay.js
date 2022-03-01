@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter, Link, Switch, Route } from 'react-router-dom';
+import NCCHeader from './NccHeader';
 
 class NCC extends React.Component {
   constructor(props) {
@@ -71,8 +72,17 @@ class NCC extends React.Component {
               tdl.push(<td style={{border: '2px solid brown', padding: '2px', width: '10px', height: '10px'}} key={`c${lineIndex}`}>{line}</td>);
               // get the line data stored as an array in the key of each line   
               const lineData = data[station][line];
+              // filter the line data for any duplicates ----- fix this database post/update issues later
+              let newLineData = lineData.map( (ldd, index, array) => {
+                const theData = array.filter((ld) => ld.hour === index + 1);
+                return theData[0]
+              })
+              newLineData = newLineData.filter(nld => nld !== undefined)
+              console.log(newLineData, 'the new line data')
               // iterate through the line data and push it into the table-data array where the station and line name is already existing
-              lineData.forEach((tdd, index) => {
+              newLineData.forEach((tdd, index) => {
+                // console.log(index+1, 'the index', tdd)
+                
                   tdl.push(<td style={{border: '2px solid brown', padding: '2px', width: '10px', height: '10px'}} key={`a${index}`}>{tdd.mw}</td>)
               });
               // get the maximum of the line data and hour
@@ -84,6 +94,10 @@ class NCC extends React.Component {
                   }
               }
               console.log(maxMw)
+              if(maxMw) {
+                tdl.push(<td key={`g${stationIndex}-${lineIndex}`} style={{border: '2px solid brown', padding: '2px', width: '10px', height: '10px'}}>{maxMw.mw}</td>)
+                tdl.push(<td key={`h${stationIndex}-${lineIndex}`} style={{border: '2px solid brown', padding: '2px', width: '10px', height: '10px'}}>{maxMw.hour}</td>)
+              }              
               tr.push(<tr key={`d${stationIndex}-${lineIndex}`}>{tdl}</tr>)
             })
             tableRow.push(tr);
@@ -92,9 +106,9 @@ class NCC extends React.Component {
     return (
       <div>
         {/* Select a date to usein getting the data */}
-        <input className='date-input' type={'date'} onChange={this.setDate} ref={node => this.selectedDate = node } defaultValue={this.state.date} ></input>
-          <table >
-              <thead></thead>
+        <input style={{margin: '10px'}} className='date-input' type={'date'} onChange={this.setDate} ref={node => this.selectedDate = node } defaultValue={this.state.date} ></input>
+          <table style={{margin: '10px'}} >
+              <NCCHeader/>
               <tbody>
                 {tableRow}
               </tbody>
